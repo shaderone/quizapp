@@ -8,21 +8,22 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   // ** what does this do?
-  runApp(GetMaterialApp(home: DataUploaderScreen()));
+  runApp(const Root());
 }
 
-//class Root extends StatelessWidget {
-//  const Root({super.key});
-//
-//  @override
-//  Widget build(BuildContext context) {
-//    return MaterialApp(
-//      title: 'Flutter Demo',
-//      theme: ThemeData(
-//        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-//        useMaterial3: true,
-//      ),
-//      home: const dataupl,
-//    );
-//  }
-//}
+class Root extends StatelessWidget {
+  const Root({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return GetMaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
+      ),
+      debugShowCheckedModeBanner: false,
+      home: DataUploaderScreen(),
+    );
+  }
+}

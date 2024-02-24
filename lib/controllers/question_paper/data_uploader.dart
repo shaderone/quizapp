@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 //This controller is for the admin
@@ -26,9 +27,20 @@ class DataUploader extends GetxController {
     // ** what is the difference between 'Iterable' and 'List'
     final manifestContentFilteredIterable = manifestContentMap.keys.where((path) => path.startsWith("assets/DB/paper") && path.contains(".json"));
     // this data is what admin manages
-    final papersInAssets = manifestContentFilteredIterable.toList();
-    print(papersInAssets);
+    final paperPathsInAssets = manifestContentFilteredIterable.toList();
+    print(paperPathsInAssets);
 
     // ? NEXT : loop through the filtered data.
+    for (var paper in paperPathsInAssets) {
+      final paperContent = await rootBundle.loadString(paper);
+      print(paperContent);
+      // ? -- this data will be converted from JSON - MODEL - OBJECT - LIST and to firebase backend
+    }
   }
 }
+
+/* Things did :
+-> get data from assetBundle
+-> get all json paths
+-> get content from each json file
+ */
