@@ -8,7 +8,7 @@ class QuestionPaperModel {
   String imageUrl;
   String description;
   int timeSeconds;
-  List<Questions> questions;
+  List<QuestionsModal>? questions;
 
   QuestionPaperModel({required this.id, required this.title, required this.imageUrl, required this.description, required this.timeSeconds, required this.questions});
 
@@ -19,7 +19,7 @@ class QuestionPaperModel {
         description = json['Description'] as String,
         timeSeconds = json['time_seconds'] as int,
         // we cast question as Map<String,dynamic> because its the type required.
-        questions = (json['questions'] as List).map((question) => Questions.fromJson(question as Map<String, dynamic>)).toList();
+        questions = (json['questions'] as List).map((question) => QuestionsModal.fromJson(question as Map<String, dynamic>)).toList();
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
@@ -28,20 +28,20 @@ class QuestionPaperModel {
     data['image_url'] = imageUrl;
     data['Description'] = description;
     data['time_seconds'] = timeSeconds;
-    data['questions'] = questions.map((v) => v.toJson()).toList();
+    data['questions'] = questions == null ? [] : questions!.map((v) => v.toJson()).toList();
     return data;
   }
 }
 
-class Questions {
+class QuestionsModal {
   String id;
   String question;
   List<AnswersModal> answers;
   String correctAnswer;
 
-  Questions({required this.id, required this.question, required this.answers, required this.correctAnswer});
+  QuestionsModal({required this.id, required this.question, required this.answers, required this.correctAnswer});
 
-  Questions.fromJson(Map<String, dynamic> json)
+  QuestionsModal.fromJson(Map<String, dynamic> json)
       : id = json['id'] as String,
         question = json['question'] as String,
         // Get the answers from json (in Map from) and convert it to List. Then Iterate over this list and call Answers modal to convert each answer from Map to list type.
