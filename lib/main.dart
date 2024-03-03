@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:quiz_app/bindings/initial_bindings.dart';
+import 'package:quiz_app/controllers/theme_controller/theme_controller.dart';
 import 'package:quiz_app/firebase_options.dart';
 import 'package:quiz_app/routes/app_routes.dart';
 
@@ -20,14 +21,7 @@ class Root extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        //textTheme: const TextTheme(
-        //  bodyMedium: TextStyle(color: Colors.white),
-        //),
-        //scaffoldBackgroundColor: const Color.fromARGB(255, 30, 31, 45),
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
+      theme: Get.find<ThemeController>().darkTheme,
       debugShowCheckedModeBanner: false,
       //home: DataUploaderScreen(),
       getPages: AppRoutes.routes,

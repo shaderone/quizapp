@@ -23,6 +23,10 @@ class OnboardingScreen extends StatelessWidget {
               Text(
                 "Get ready to challenge your knowledge! Our quiz app offers diverse topics, friendly competition, and global leaderboards. Learn, play, and conquer!",
                 textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: ksurfaceTextColor,
+                  fontSize: 18,
+                ),
               ),
             ],
           ),
