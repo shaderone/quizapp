@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:quiz_app/firebase_ref/loading_status.dart';
 import 'package:quiz_app/firebase_ref/references.dart';
 import 'package:quiz_app/models/question_paper_model.dart';
 
@@ -17,6 +18,8 @@ class DataUploader extends GetxController {
     super.onReady();
   }
 
+  final loadingStatus = LoadingStatus.loading.obs;
+
   Future<void> uploadData() async {
     // get firestore (firebse database name) instance
     final firestore = FirebaseFirestore.instance;
@@ -28,6 +31,7 @@ class DataUploader extends GetxController {
     final manifestContent = await DefaultAssetBundle.of(Get.context!).loadString("AssetManifest.json");
     //now the whole data is loaded into 'manifestContent', and next we need to decode the json data to read its content, (it will return a MAP)
     final Map<String, dynamic> manifestContentMap = json.decode(manifestContent);
+    //log(manifestContentMap.toString());
     //now to filter out the specific data that's requried (in this case we only need the json files stored in under assets/DB/paper, however the result has all data under 'assets:'), we need to get the keys
     // ** what is the difference between 'Iterable' and 'List'
     final manifestContentFilteredIterable = manifestContentMap.keys.where((path) => path.startsWith("assets/DB/paper") && path.contains(".json"));
@@ -88,6 +92,8 @@ class DataUploader extends GetxController {
 
       // commit() methods - sent the finished data (using set()) to cloud firestore
       await batch.commit();
+
+      loadingStatus.value = LoadingStatus.completed;
     }
   }
 }
@@ -97,5 +103,6 @@ class DataUploader extends GetxController {
 -> get data from assetBundle
 -> get all json paths
 -> get content from each json file
----- send data to firestore backend
+-> send data to firestore backend
+! How Errors are handled?
  */
