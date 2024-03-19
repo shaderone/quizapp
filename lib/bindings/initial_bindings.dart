@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 import 'package:quiz_app/controllers/auth_controller.dart';
+import 'package:quiz_app/controllers/question_paper/question_paper_controller.dart';
 import 'package:quiz_app/controllers/theme_controller/theme_controller.dart';
+import 'package:quiz_app/services/firebase_storage_services.dart';
 
 class InitialBindings implements Bindings {
   @override
@@ -8,5 +10,7 @@ class InitialBindings implements Bindings {
     // ** here we inject the controllers in the app
     Get.put(ThemeController());
     Get.put(AuthController(), permanent: true);
+    Get.put(QuestionPaperController());
+    Get.lazyPut(() => FirebaseStorageService());
   }
 }

@@ -1,4 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!--<network-security-config> <domain-config cleartextTrafficPermitted="true"> <domain includeSubdomains="true">10.0.2.2</domain> </domain-config> </network-security-config>-->
+
     <application
         android:label="quiz_app"
         android:name="${applicationName}"

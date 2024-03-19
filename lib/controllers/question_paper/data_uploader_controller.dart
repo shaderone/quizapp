@@ -8,7 +8,7 @@ import 'package:quiz_app/firebase_ref/references.dart';
 import 'package:quiz_app/models/question_paper_model.dart';
 
 //This controller is for the admin
-class DataUploader extends GetxController {
+class DataUploaderController extends GetxController {
   @override
   // This function is called only once.(in the app lifetime or when it restores)
   // This 'controller' should be called from the UI

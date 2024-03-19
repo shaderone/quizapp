@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:quiz_app/common/widgets.dart';
 import 'package:quiz_app/config/Themes/app_colors.dart';
 
@@ -33,7 +34,7 @@ class OnboardingScreen extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () => Get.offAllNamed("/home"),
         child: const Icon(Icons.arrow_forward_ios_rounded),
       ),
     );

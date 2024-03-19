@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:quiz_app/controllers/question_paper/data_uploader.dart';
+import 'package:quiz_app/controllers/question_paper/data_uploader_controller.dart';
 import 'package:quiz_app/firebase_ref/loading_status.dart';
 
 //The getxcontroller - 'DataUploader' should be called here.
@@ -8,7 +8,7 @@ import 'package:quiz_app/firebase_ref/loading_status.dart';
 class DataUploaderScreen extends StatelessWidget {
   DataUploaderScreen({super.key});
   // ** - what is dependency and package injection?
-  final DataUploader controller = Get.put(DataUploader());
+  final DataUploaderController controller = Get.put(DataUploaderController());
 
   @override
   Widget build(BuildContext context) {
