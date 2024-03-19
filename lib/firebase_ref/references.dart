@@ -1,6 +1,7 @@
 // ? This file contains all the references related to firebase and firestore.
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 final fireStore = FirebaseFirestore.instance;
 // when we invoke this reference, it'll create or point to the collection mentioned
@@ -11,3 +12,6 @@ DocumentReference questionsCRF({required String paperId, required String questio
   //create a new collection based on the previous collection (ie; questionPaperCRF)
   return questionPaperCRF.doc(paperId).collection("questions").doc(questionId);
 }
+
+//Firebase Storage Reference
+Reference get firebaseStorage => FirebaseStorage.instance.ref();
