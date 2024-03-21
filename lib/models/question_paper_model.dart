@@ -2,6 +2,8 @@
 
 // ** json to dart - online converted model
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class QuestionPaperModel {
   String id;
   String title;
@@ -9,17 +11,30 @@ class QuestionPaperModel {
   String description;
   int timeSeconds;
   List<QuestionsModal>? questions;
+  int questionCount;
 
-  QuestionPaperModel({required this.id, required this.title, required this.imageUrl, required this.description, required this.timeSeconds, required this.questions});
+  QuestionPaperModel({required this.id, required this.title, required this.imageUrl, required this.description, required this.timeSeconds, required this.questions, required this.questionCount});
 
   QuestionPaperModel.fromJson(Map<String, dynamic> json)
       : id = json['id'] as String,
         title = json['title'] as String,
         imageUrl = json['image_url'] as String,
         description = json['Description'] as String,
-        timeSeconds = json['time_seconds'] as int,
+        timeSeconds = json['time_seconds'],
+        questionCount = 0,
         // we cast question as Map<String,dynamic> because its the type required.
         questions = (json['questions'] as List).map((question) => QuestionsModal.fromJson(question as Map<String, dynamic>)).toList();
+
+  QuestionPaperModel.fromSnapshot(DocumentSnapshot<Map<String, dynamic>> json)
+      : id = json.id,
+        //id = json['id'] as String,
+        title = json['title'],
+        imageUrl = json['image_url'],
+        description = json['description'], // ! why is this 'd'escriptino?
+        timeSeconds = json['time_seconds'],
+        questionCount = json['questions_count'] as int,
+        // we don't need this data for homeScreen
+        questions = [];
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};

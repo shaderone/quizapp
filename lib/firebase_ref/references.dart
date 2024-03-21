@@ -14,4 +14,4 @@ DocumentReference questionsCRF({required String paperId, required String questio
 }
 
 //Firebase Storage Reference
-Reference get firebaseStorage => FirebaseStorage.instance.ref();
+Reference get firebaseStorageRF => FirebaseStorage.instance.ref();

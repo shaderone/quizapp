@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../controllers/question_paper/question_paper_controller.dart';
@@ -8,11 +9,12 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final QuestionPaperController questionPaperController = Get.find<QuestionPaperController>();
+    //print(questionPaperController.questionPapersList.length);
     return Scaffold(
       body: SafeArea(
         child: Obx(
           () => ListView.separated(
-            itemCount: questionPaperController.imageDownloadUrls.length,
+            itemCount: questionPaperController.questionPapersList.length,
             separatorBuilder: (BuildContext context, int index) {
               return const SizedBox(height: 20);
             },
@@ -22,9 +24,12 @@ class HomeScreen extends StatelessWidget {
                 child: SizedBox(
                   height: 200,
                   width: 200,
-                  child: FadeInImage(
-                    placeholder: const AssetImage("assets/images/app_splash_logo.png"),
-                    image: NetworkImage(questionPaperController.imageDownloadUrls[index]),
+                  child: CachedNetworkImage(
+                    imageUrl: questionPaperController.questionPapersList[index].imageUrl,
+                    placeholder: (context, url) => const Center(
+                      child: CircularProgressIndicator(strokeWidth: 2),
+                    ),
+                    errorWidget: (context, url, error) => Image.asset("assets/images/app_splash_logo.png"),
                   ),
                 ),
               );

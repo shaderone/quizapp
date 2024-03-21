@@ -14,7 +14,7 @@ class FirebaseStorageService extends GetxService {
       // child() requires a path (folder name), each directory should be in child().
       // ? urlRef is a special type of url which acts as a reference link to the file path, this includes many features, like uploading feature, passing user data and so on. the getDownloadUrl is only one of the feature when creating a storage reference.
       // ** firebaseStorage is the reference variable to Firebase Storage
-      Reference urlRef = firebaseStorage.child("question_paper_images").child("${imageName.toLowerCase()}.png");
+      Reference urlRef = firebaseStorageRF.child("question_paper_images").child("${imageName.toLowerCase()}.png");
       // actual image path (only for downloading no other functionalities)
       var imageUrl = await urlRef.getDownloadURL();
       return imageUrl;
