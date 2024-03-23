@@ -12,16 +12,16 @@ class OnboardingScreen extends StatelessWidget {
       body: SafeArea(
         child: Container(
           padding: const EdgeInsets.all(10.0),
-          decoration: BoxDecoration(gradient: getGradient(context)),
-          child: const Column(
+          decoration: BoxDecoration(gradient: getGradient()),
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(
+              const Icon(
                 Icons.star,
                 size: 32,
               ),
-              Gap(20),
-              Text(
+              Gap.vertical(20),
+              const Text(
                 "Get ready to challenge your knowledge! Our quiz app offers diverse topics, friendly competition, and global leaderboards. Learn, play, and conquer!",
                 textAlign: TextAlign.center,
                 style: TextStyle(

@@ -36,6 +36,8 @@ class QuestionPaperModel {
         // we don't need this data for homeScreen
         questions = [];
 
+  String get timeInMinutes => "${(timeSeconds / 60).ceil()} mins";
+
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;

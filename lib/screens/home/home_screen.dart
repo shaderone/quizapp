@@ -1,6 +1,7 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:quiz_app/config/Themes/ui_parameters.dart';
+import 'package:quiz_app/screens/home/question_card.dart';
 import '../../controllers/question_paper/question_paper_controller.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -14,23 +15,17 @@ class HomeScreen extends StatelessWidget {
       body: SafeArea(
         child: Obx(
           () => ListView.separated(
+            padding: UiParameters.mobileScreenPadding,
+            shrinkWrap: true,
             itemCount: questionPaperController.questionPapersList.length,
             separatorBuilder: (BuildContext context, int index) {
               return const SizedBox(height: 20);
             },
             itemBuilder: (BuildContext context, int index) {
-              return ClipRRect(
-                borderRadius: BorderRadius.circular(12),
-                child: SizedBox(
-                  height: 200,
-                  width: 200,
-                  child: CachedNetworkImage(
-                    imageUrl: questionPaperController.questionPapersList[index].imageUrl,
-                    placeholder: (context, url) => const Center(
-                      child: CircularProgressIndicator(strokeWidth: 2),
-                    ),
-                    errorWidget: (context, url, error) => Image.asset("assets/images/app_splash_logo.png"),
-                  ),
+              return Padding(
+                padding: const EdgeInsets.only(top: 20),
+                child: QuestionCard(
+                  paperData: questionPaperController.questionPapersList[index],
                 ),
               );
             },

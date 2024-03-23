@@ -27,4 +27,4 @@ const gradientDarkTheme = LinearGradient(
 );
 
 // choose the required theme programatically
-LinearGradient getGradient(BuildContext context) => UiParameters.isDarkMode(context) ? gradientDarkTheme : gradientLightTheme;
+LinearGradient getGradient() => UiParameters.isDarkMode() ? gradientDarkTheme : gradientLightTheme;

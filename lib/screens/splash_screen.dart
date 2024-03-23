@@ -10,7 +10,7 @@ class SplashScreen extends StatelessWidget {
       body: SafeArea(
         child: Container(
           alignment: Alignment.center,
-          decoration: BoxDecoration(gradient: getGradient(context)),
+          decoration: BoxDecoration(gradient: getGradient()),
           child: Image.asset(
             "assets/images/app_splash_logo.png",
             width: 175,

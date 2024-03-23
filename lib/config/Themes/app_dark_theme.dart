@@ -11,6 +11,8 @@ class DarkThemeData with SubThemeData {
   ThemeData buildDarkTheme() {
     ThemeData systemDarkTheme = ThemeData.dark();
     return systemDarkTheme.copyWith(
+      primaryColor: primaryColorDark,
+      primaryColorDark: primaryColorDarkSub,
       iconTheme: getIconTheme(),
       textTheme: getTextTheme().apply(
         displayColor: primaryTextColorLight,
