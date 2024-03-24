@@ -1,3 +1,5 @@
+// ** This is where we'll deal with the color related stuffs, like its configs and conditional checking
+
 import 'package:flutter/material.dart';
 import 'package:quiz_app/config/Themes/app_dark_theme.dart';
 import 'package:quiz_app/config/Themes/app_light_theme.dart';
@@ -28,3 +30,7 @@ const gradientDarkTheme = LinearGradient(
 
 // choose the required theme programatically
 LinearGradient getGradient() => UiParameters.isDarkMode() ? gradientDarkTheme : gradientLightTheme;
+
+Color customScaffodColor() {
+  return UiParameters.isDarkMode() ? const Color(0xFF2e3c62) : const Color.fromARGB(255, 240, 237, 255);
+}

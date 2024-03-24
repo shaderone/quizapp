@@ -1,4 +1,4 @@
-// ** This is where we'll identify the current thememode.
+// ** This is where we'll write data that assists strictly in UI development
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

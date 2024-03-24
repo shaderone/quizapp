@@ -24,4 +24,5 @@ TextStyle cardTitleTextStyleUtil(context) => TextStyle(
 
 TextStyle cardStatTextStyleUtil(context) => TextStyle(
       color: UiParameters.isDarkMode() ? Theme.of(context).textTheme.bodyLarge!.color : Theme.of(context).primaryColorLight,
+      fontSize: 13,
     );
