@@ -4,6 +4,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
 final fireStore = FirebaseFirestore.instance;
+
+//Firebase User Collection Reference
+final userRFC = fireStore.collection("users");
+
 // when we invoke this reference, it'll create or point to the collection mentioned
 final questionPaperCRF = fireStore.collection("questionPapers");
 // ? To create a new collection, we need a reference from the old collection, ie; the id of the old collection

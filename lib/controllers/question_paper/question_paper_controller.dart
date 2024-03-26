@@ -1,6 +1,8 @@
 // ? controller to get images from the firebase_storage
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:quiz_app/controllers/auth_controller.dart';
 import 'package:quiz_app/firebase_ref/references.dart';
 import 'package:quiz_app/models/question_paper_model.dart';
 import 'package:quiz_app/services/firebase_storage_services.dart';
@@ -42,6 +44,28 @@ class QuestionPaperController extends GetxController {
       print("list - ${questionPapersList.length}");
     } catch (e) {
       print(e);
+    }
+  }
+
+  void navigateToQuestions({required QuestionPaperModel questionPaperModel, required BuildContext context, bool tryAgain = false}) {
+    //first we need to get the authController, since it knows whether the user is logged in or no and also the method to showDialog is 'sort-of` defined in it.
+
+    AuthController authController = Get.find<AuthController>();
+
+    // means if a user exists...
+    if (authController.isUserLoggedIn()) {
+      //!WTF is tryAgain
+      if (tryAgain) {
+        Get.back();
+        //? the offNamed() will remove the page from the stack and all the controllers will be deactivated.
+        //Get.offNamed();
+      } else {
+        //Get.toNamed("/q");
+      }
+    } else {
+      print("The title is : ${questionPaperModel.title}");
+      //show alert to signIn
+      authController.showLoginAlert(context, questionPaperModel.title);
     }
   }
 }
