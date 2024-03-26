@@ -7,10 +7,10 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Container(
-          alignment: Alignment.center,
-          decoration: BoxDecoration(gradient: getGradient()),
+      body: Container(
+        alignment: Alignment.center,
+        decoration: BoxDecoration(gradient: getGradient()),
+        child: SafeArea(
           child: Image.asset(
             "assets/images/app_splash_logo.png",
             width: 175,

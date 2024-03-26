@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:quiz_app/bindings/initial_bindings.dart';
 import 'package:quiz_app/controllers/theme_controller/theme_controller.dart';
@@ -19,6 +20,7 @@ class Root extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
     return GetMaterialApp(
       title: 'Flutter Demo',
       theme: Get.find<ThemeController>().lightTheme,

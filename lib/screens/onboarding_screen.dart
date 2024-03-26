@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:quiz_app/common/widgets.dart';
+import 'package:quiz_app/common/common_widgets.dart';
 import 'package:quiz_app/config/Themes/app_colors.dart';
+import 'package:quiz_app/config/Themes/ui_parameters.dart';
 
 class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({super.key});
@@ -9,10 +10,10 @@ class OnboardingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Container(
-          padding: const EdgeInsets.all(10.0),
-          decoration: BoxDecoration(gradient: getGradient()),
+      body: Container(
+        padding: EdgeInsets.all(mobileScreenPadding),
+        decoration: BoxDecoration(gradient: getGradient()),
+        child: SafeArea(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -26,7 +27,7 @@ class OnboardingScreen extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: ksurfaceTextColor,
-                  fontSize: 18,
+                  fontSize: 17,
                 ),
               ),
             ],

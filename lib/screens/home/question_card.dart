@@ -2,7 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:quiz_app/common/widgets.dart';
+import 'package:quiz_app/common/common_widgets.dart';
+import 'package:quiz_app/config/app_icons.dart';
 import 'package:quiz_app/models/question_paper_model.dart';
 
 import '../../config/Themes/ui_parameters.dart';
@@ -87,7 +88,7 @@ class QuestionCard extends StatelessWidget {
                   ),
                 ),
               ),
-              icon: const Icon(Icons.wine_bar),
+              icon: const Icon(AppIcons.trophyOutline),
             ),
           ),
         ],
