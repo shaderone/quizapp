@@ -13,7 +13,7 @@ class Dialogs {
       content: Text("Please Login before you start the $title test"),
       actions: [
         TextButton(onPressed: () => Navigator.of(context).pop(), child: const Text("back")),
-        TextButton(onPressed: () {}, child: const Text("Login")),
+        TextButton(onPressed: onTap, child: const Text("Login")),
       ],
     );
   }

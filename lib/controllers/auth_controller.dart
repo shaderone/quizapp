@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:quiz_app/common/popup_dialog.dart';
 import 'package:quiz_app/firebase_ref/references.dart';
+import 'package:quiz_app/screens/login/login_screen.dart';
 
 class AuthController extends GetxController {
   late FirebaseAuth auth;
@@ -70,13 +71,13 @@ class AuthController extends GetxController {
     });
   }
 
-  void showLoginAlert(context, title) {
+  void showLoginPopup(context, title) {
     Get.dialog(
       Dialogs.showSignInDialog(
         onTap: () {
           //remove the current page
           Get.back();
-          // ! Navigate to login page here
+          navigateToLoginScreen();
         },
         context: context,
         title: title,
@@ -87,7 +88,7 @@ class AuthController extends GetxController {
 
   bool isUserLoggedIn() => auth.currentUser != null;
 
-  void navigateToOnboardingScreen() {
-    Get.offAllNamed("/onboarding");
-  }
+  void navigateToOnboardingScreen() => Get.offAllNamed("/onboarding");
+
+  void navigateToLoginScreen() => Get.toNamed(LoginScreen.loginRouteName);
 }

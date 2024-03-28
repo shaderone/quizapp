@@ -13,6 +13,8 @@ import '../../controllers/drawer_menu_controller.dart';
 class HomeScreen extends GetView<DrawerMenuController> {
   const HomeScreen({super.key});
 
+  static const String homeScreenRouteName = "/home";
+
   @override
   Widget build(BuildContext context) {
     final QuestionPaperController questionPaperController = Get.find<QuestionPaperController>();
@@ -60,23 +62,26 @@ class HomeScreen extends GetView<DrawerMenuController> {
                         ),
                       ),
                       Expanded(
-                        child: ContentArea(
-                          addPadding: false,
-                          child: Obx(
-                            () => ListView.separated(
-                              padding: UiParameters.mobileScreenPadding,
-                              itemCount: questionPaperController.questionPapersList.length,
-                              separatorBuilder: (BuildContext context, int index) {
-                                return const SizedBox(height: 20);
-                              },
-                              itemBuilder: (BuildContext context, int index) {
-                                return Padding(
-                                  padding: const EdgeInsets.only(top: 20),
-                                  child: QuestionCard(
-                                    paperData: questionPaperController.questionPapersList[index],
-                                  ),
-                                );
-                              },
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          child: ContentArea(
+                            addPadding: false,
+                            child: Obx(
+                              () => ListView.separated(
+                                padding: UiParameters.mobileScreenPadding,
+                                itemCount: questionPaperController.questionPapersList.length,
+                                separatorBuilder: (BuildContext context, int index) {
+                                  return const SizedBox(height: 20);
+                                },
+                                itemBuilder: (BuildContext context, int index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.only(top: 20),
+                                    child: QuestionCard(
+                                      paperData: questionPaperController.questionPapersList[index],
+                                    ),
+                                  );
+                                },
+                              ),
                             ),
                           ),
                         ),

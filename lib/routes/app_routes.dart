@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
+import 'package:quiz_app/controllers/auth_controller.dart';
 import 'package:quiz_app/screens/home/home_screen.dart';
+import 'package:quiz_app/screens/login/login_screen.dart';
 import 'package:quiz_app/screens/onboarding_screen.dart';
 import 'package:quiz_app/screens/splash_screen.dart';
 
@@ -10,7 +12,7 @@ class AppRoutes {
   static List<GetPage> routes = [
     GetPage(name: "/", page: () => const SplashScreen()),
     GetPage(
-      name: "/onboarding",
+      name: OnboardingScreen.onboardingScreenRouteName,
       page: () => const OnboardingScreen(),
       binding: BindingsBuilder(() {
         //This is just to load the data in HomeScreen faster
@@ -18,12 +20,19 @@ class AppRoutes {
       }),
     ),
     GetPage(
-      name: "/home",
+      name: HomeScreen.homeScreenRouteName,
       page: () => const HomeScreen(),
       binding: BindingsBuilder(() {
         Get.put(QuestionPaperController());
         Get.put(DrawerMenuController());
       }),
+    ),
+    GetPage(
+      name: LoginScreen.loginRouteName,
+      page: () => const LoginScreen(),
+      //binding: BindingsBuilder(() {
+      //  Get.put(AuthController());
+      //}),
     ),
   ];
 }

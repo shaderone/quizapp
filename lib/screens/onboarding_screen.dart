@@ -7,6 +7,8 @@ import 'package:quiz_app/config/Themes/ui_parameters.dart';
 class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({super.key});
 
+  static const String onboardingScreenRouteName = "/onboarding";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
