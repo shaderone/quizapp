@@ -59,10 +59,9 @@ class QuestionPaperController extends GetxController {
         Get.back();
         //? the offNamed() will remove the page from the stack and all the controllers will be deactivated.
         //Get.offNamed();
-        print("user logged in");
       } else {
         //Get.toNamed("/q");
-        print("user not logged in");
+        print("user logged in");
       }
     } else {
       print("The title is : ${questionPaperModel.title}");

@@ -4,7 +4,9 @@ import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:quiz_app/common/popup_dialog.dart';
 import 'package:quiz_app/firebase_ref/references.dart';
+import 'package:quiz_app/screens/home/home_screen.dart';
 import 'package:quiz_app/screens/login/login_screen.dart';
+import 'package:quiz_app/screens/onboarding_screen.dart';
 
 class AuthController extends GetxController {
   late FirebaseAuth auth;
@@ -38,37 +40,43 @@ class AuthController extends GetxController {
     final GoogleSignIn googleSignIn = GoogleSignIn();
     try {
       //*
-      //-> Initiate signIn with google
+      //-> Get googleSignIn instance
       //-> check for account
       //-> if account is found, get the creds
       //-> send the cred to firebase using its googleSignIn method.
       //-> user is now authenticated, and the user data is stored in firebase.
       // */
-      //we'll try to get account from google, using the googleSignIn method
+      //we'll try to get account details from google, using the googleSignIn method
       GoogleSignInAccount? googleAccount = await googleSignIn.signIn();
 
       if (googleAccount != null) {
         //if account exists, get the authentication object from google. this object will have the unique token and access id.
-        final authAccount = await googleAccount.authentication;
+        final googleAccountDetails = await googleAccount.authentication;
         //this class is from firebase auth, we get the account creds from the googleSignIn method.
-        final credential = GoogleAuthProvider.credential(idToken: authAccount.idToken, accessToken: authAccount.accessToken);
+        final credential = GoogleAuthProvider.credential(
+          idToken: googleAccountDetails.idToken,
+          accessToken: googleAccountDetails.accessToken,
+        );
         //login to the app with the credentials got from the google account.
         await auth.signInWithCredential(credential);
 
-        saveUserToDataBase(googleAccount);
+        print("trying to save user to firebase");
+        await saveUserToDataBase(googleAccount);
+        navigateToHomeScreen();
       }
-    } catch (e) {
+    } on Exception catch (e) {
       log(e.toString());
     }
   }
 
-  void saveUserToDataBase(GoogleSignInAccount googleAccount) {
-    userRFC.doc(googleAccount.email).set({
+  Future<void> saveUserToDataBase(GoogleSignInAccount googleAccount) async {
+    await userRFC.doc(googleAccount.email).set({
       //based on the users email, we are creating new user collection with the following document with these fields
       "email": googleAccount.email,
       "name": googleAccount.displayName,
       "profile_pic": googleAccount.photoUrl,
     });
+    print("user is saved ");
   }
 
   void showLoginPopup(context, title) {
@@ -88,7 +96,9 @@ class AuthController extends GetxController {
 
   bool isUserLoggedIn() => auth.currentUser != null;
 
-  void navigateToOnboardingScreen() => Get.offAllNamed("/onboarding");
+  void navigateToHomeScreen() => Get.offAllNamed(HomeScreen.homeScreenRouteName);
+
+  void navigateToOnboardingScreen() => Get.offAllNamed(OnboardingScreen.onboardingScreenRouteName);
 
   void navigateToLoginScreen() => Get.toNamed(LoginScreen.loginRouteName);
 }

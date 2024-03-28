@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:quiz_app/controllers/auth_controller.dart';
 import 'package:quiz_app/screens/home/home_screen.dart';
 import 'package:quiz_app/screens/login/login_screen.dart';
 import 'package:quiz_app/screens/onboarding_screen.dart';
