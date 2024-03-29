@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
 import 'package:quiz_app/screens/home/home_screen.dart';
 import 'package:quiz_app/screens/login/login_screen.dart';
-import 'package:quiz_app/screens/onboarding_screen.dart';
-import 'package:quiz_app/screens/splash_screen.dart';
+import 'package:quiz_app/screens/onboarding/onboarding_screen.dart';
+import 'package:quiz_app/screens/splash/splash_screen.dart';
 
 import '../controllers/drawer_menu_controller.dart';
 import '../controllers/question_paper/question_paper_controller.dart';
@@ -29,9 +29,6 @@ class AppRoutes {
     GetPage(
       name: LoginScreen.loginRouteName,
       page: () => const LoginScreen(),
-      //binding: BindingsBuilder(() {
-      //  Get.put(AuthController());
-      //}),
     ),
   ];
 }

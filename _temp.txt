@@ -1,1 +1,37 @@
-learn getx
+
+
+- 06 march : 4:03:00
+- 26 march : 6:25:10
+- 29 march : 7:37:51
+
+git : 
+ - 
+
+
+
+----------------------------------------------------------------
+-> go to homeScreen directly after logged in.
+-> show loading status in between pages and actions
+-> check drawer items functionality.
+-> uncomment the line in drawer controller
+-> Add a loading indicator in homeScreen
+----------------------------------------------------------------
+-> ISSUE (DONE) : 
+(only for android - guess it was network permission issue)
+
+current issue - firebaseStorageService not connecting.
+
+solution - configure app check -- current goal
+solution2 - configure access token
+
+- for that require sha-1 fingerprint
+- for that app signing is required. 
+----------------------------------------------------------------
+
+ TODO : 
+ get the files names from asset folder 
+ sent it to the getImages() in firebaseStorageService class
+
+ LATER : 
+ - get file names natively to send to the firebaseStorageService.
+ - fix app check warning

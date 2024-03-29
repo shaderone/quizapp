@@ -6,7 +6,7 @@ import 'package:quiz_app/common/popup_dialog.dart';
 import 'package:quiz_app/firebase_ref/references.dart';
 import 'package:quiz_app/screens/home/home_screen.dart';
 import 'package:quiz_app/screens/login/login_screen.dart';
-import 'package:quiz_app/screens/onboarding_screen.dart';
+import 'package:quiz_app/screens/onboarding/onboarding_screen.dart';
 
 class AuthController extends GetxController {
   late FirebaseAuth auth;
@@ -24,7 +24,7 @@ class AuthController extends GetxController {
   }
 
   Future<void> initAuth() async {
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 1));
     auth = FirebaseAuth.instance;
     // The _authStateChanges will hold the info about user State changes, ie; logged in or out.
     authStateChanges = auth.authStateChanges();
@@ -32,7 +32,7 @@ class AuthController extends GetxController {
     authStateChanges.listen((User? user) {
       _user.value = user;
     });
-    navigateToOnboardingScreen();
+    _user.value != null ? navigateToHomeScreen() : navigateToOnboardingScreen();
   }
 
   //If user not found, we use google signin method to authenticate the user, And the credentials are sent to firebase backend.
@@ -59,8 +59,6 @@ class AuthController extends GetxController {
         );
         //login to the app with the credentials got from the google account.
         await auth.signInWithCredential(credential);
-
-        print("trying to save user to firebase");
         await saveUserToDataBase(googleAccount);
         navigateToHomeScreen();
       }
@@ -76,8 +74,27 @@ class AuthController extends GetxController {
       "name": googleAccount.displayName,
       "profile_pic": googleAccount.photoUrl,
     });
-    print("user is saved ");
   }
+
+  Future<void> signOut() async {
+    try {
+      await auth.signOut();
+    } on FirebaseAuthException catch (e) {
+      log(e.toString());
+    }
+  }
+
+  User? getUser() {
+    return _user.value = auth.currentUser;
+  }
+
+  bool isUserLoggedIn() => auth.currentUser != null;
+
+  void navigateToHomeScreen() => Get.offAllNamed(HomeScreen.homeScreenRouteName);
+
+  void navigateToOnboardingScreen() => Get.offAllNamed(OnboardingScreen.onboardingScreenRouteName);
+
+  void navigateToLoginScreen() => Get.toNamed(LoginScreen.loginRouteName);
 
   void showLoginPopup(context, title) {
     Get.dialog(
@@ -93,12 +110,4 @@ class AuthController extends GetxController {
       //barrierDismissible: true, allow box to be dismissed.
     );
   }
-
-  bool isUserLoggedIn() => auth.currentUser != null;
-
-  void navigateToHomeScreen() => Get.offAllNamed(HomeScreen.homeScreenRouteName);
-
-  void navigateToOnboardingScreen() => Get.offAllNamed(OnboardingScreen.onboardingScreenRouteName);
-
-  void navigateToLoginScreen() => Get.toNamed(LoginScreen.loginRouteName);
 }
