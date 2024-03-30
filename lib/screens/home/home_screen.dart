@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:get/get.dart';
-import 'package:quiz_app/common/content_area.dart';
+import 'package:quiz_app/common/content_area_widget.dart';
 import 'package:quiz_app/config/Themes/app_colors.dart';
 import 'package:quiz_app/config/Themes/ui_parameters.dart';
 import 'package:quiz_app/config/app_icons.dart';
+import 'package:quiz_app/controllers/auth_controller.dart';
 import 'package:quiz_app/screens/home/menu_screen.dart';
 import 'package:quiz_app/screens/home/question_card.dart';
 import '../../controllers/question_paper/question_paper_controller.dart';
@@ -51,12 +52,28 @@ class HomeScreen extends GetView<DrawerMenuController> {
                                 AppIcons.menuLeft,
                               ),
                             ),
-                            const Text(
-                              "Quiz App",
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              ),
+                            GetBuilder<AuthController>(
+                              builder: (authController) {
+                                String profileUrl;
+                                final user = authController.currentUser;
+                                if (user == null || user.photoURL == null || user.photoURL!.isEmpty) {
+                                  profileUrl = "https://i.stack.imgur.com/frlIf.png";
+                                } else {
+                                  profileUrl = user.photoURL!;
+                                }
+                                return !authController.isUserLoggedIn()
+                                    ? const Text(
+                                        "Quiz App",
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      )
+                                    : CircleAvatar(
+                                        radius: 25,
+                                        backgroundImage: NetworkImage(profileUrl),
+                                      );
+                              },
                             ),
                           ],
                         ),

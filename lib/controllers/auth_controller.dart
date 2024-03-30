@@ -2,7 +2,7 @@ import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:quiz_app/common/popup_dialog.dart';
+import 'package:quiz_app/common/dialogs_widget.dart';
 import 'package:quiz_app/firebase_ref/references.dart';
 import 'package:quiz_app/screens/home/home_screen.dart';
 import 'package:quiz_app/screens/login/login_screen.dart';
@@ -87,6 +87,8 @@ class AuthController extends GetxController {
   User? getUser() {
     return _user.value = auth.currentUser;
   }
+
+  User? get currentUser => auth.currentUser;
 
   bool isUserLoggedIn() => auth.currentUser != null;
 
