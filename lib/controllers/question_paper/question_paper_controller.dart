@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:quiz_app/controllers/auth_controller.dart';
 import 'package:quiz_app/firebase_ref/references.dart';
 import 'package:quiz_app/models/question_paper_model.dart';
+import 'package:quiz_app/screens/question/question_screen.dart';
 import 'package:quiz_app/services/firebase_storage_services.dart';
 
 class QuestionPaperController extends GetxController {
@@ -60,11 +61,12 @@ class QuestionPaperController extends GetxController {
         //? the offNamed() will remove the page from the stack and all the controllers will be deactivated.
         //Get.offNamed();
       } else {
-        //Get.toNamed("/q");
-        print("user logged in");
+        // ** the argument is passed to the controller (QuestionsController) instead of the UI (QuestionScreen)
+        Get.toNamed(QuestionScreen.questionScreenRouteName, arguments: questionPaperModel);
+        //print("user logged in");
       }
     } else {
-      print("The title is : ${questionPaperModel.title}");
+      //print("The title is : ${questionPaperModel.title}");
       //show alert to signIn
       authController.showLoginPopup(context, questionPaperModel.title);
     }

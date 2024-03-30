@@ -67,6 +67,12 @@ class QuestionsModal {
         // answers will now have the answers as a list.
         correctAnswer = json['correct_answer'] as String;
 
+  QuestionsModal.fromSnapshot(QueryDocumentSnapshot<Map<String, dynamic>> snapshot)
+      : id = snapshot.id,
+        question = snapshot['question'],
+        correctAnswer = snapshot['correct_answer'],
+        answers = [];
+
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
@@ -85,12 +91,17 @@ class AnswersModal {
 
   AnswersModal.fromJson(Map<String, dynamic> json)
       : identifier = json['identifier'],
-        answer = json['Answer'];
+        answer = json['answer'];
+
+  AnswersModal.fromSnapshot(QueryDocumentSnapshot<Map<String, dynamic>> snapshot)
+      //cast to Strings if required.
+      : identifier = snapshot['identifier'],
+        answer = snapshot['answer'];
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['identifier'] = identifier;
-    data['Answer'] = answer;
+    data['answer'] = answer;
     return data;
   }
 }
