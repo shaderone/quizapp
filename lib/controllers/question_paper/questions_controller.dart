@@ -10,6 +10,11 @@ class QuestionsController extends GetxController {
   //variable to hold all question for a paper
   late List<QuestionsModal> questionsListforUI = <QuestionsModal>[].obs;
 
+  final questionsCounter = 0.obs;
+
+  bool get isFirstQuestion => questionsCounter.value > 0;
+  bool get isLastQuestion => questionsCounter.value == questionsListforUI.length - 1;
+
   // ! WTF is currentQuestion, why questionsListForUi is not used?
   Rxn<QuestionsModal> currentQuestion = Rxn<QuestionsModal>();
 
@@ -65,5 +70,25 @@ class QuestionsController extends GetxController {
     currentQuestion.value!.selectedAnswer = selectedAnswer;
     //Rebuilds any getBuilder for RXN type variables
     update(['answers_list']);
+  }
+
+  void nextQuestion() {
+    if (questionsCounter.value >= questionsListforUI.length - 1) {
+      return;
+    } else {
+      questionsCounter.value++;
+      //send the new index to the cuurent questions stack
+      currentQuestion.value = questionsListforUI[questionsCounter.value];
+    }
+  }
+
+  void previousQuestion() {
+    if (questionsCounter.value <= 0) {
+      return;
+    } else {
+      questionsCounter.value--;
+      //send the new index to the cuurent questions stack
+      currentQuestion.value = questionsListforUI[questionsCounter.value];
+    }
   }
 }

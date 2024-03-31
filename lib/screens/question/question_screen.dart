@@ -44,39 +44,80 @@ class QuestionScreen extends GetView<QuestionsController> {
                             if (controller.loadingStatus.value == LoadingStatus.loading)
                               const QuestionPlaceholder()
                             else
-                              Column(
-                                children: [
-                                  Text(
-                                    controller.currentQuestion.value!.question,
-                                    style: questionTextStyleUtil(context),
-                                  ),
-                                  Gap.vertical(30),
-                                  GetBuilder<QuestionsController>(
-                                    id: 'answers_list', // ? this id can be use to call update only to this builder<QuestionsController>
-                                    builder: (context) {
-                                      final answer = controller.currentQuestion.value!.answers;
-                                      return ListView.separated(
-                                        shrinkWrap: true,
-                                        physics: const NeverScrollableScrollPhysics(),
-                                        itemCount: controller.currentQuestion.value!.answers.length,
-                                        separatorBuilder: (BuildContext context, int index) {
-                                          return Gap.vertical(10);
-                                        },
-                                        itemBuilder: (BuildContext context, int index) {
-                                          return AnswerCardWidget(
-                                            identifier: "${answer[index].identifier}.",
-                                            answer: " ${answer[index].answer}",
-                                            onTap: () {
-                                              controller.selectedAnswer(answer[index].identifier);
-                                              print("clicck");
-                                            },
-                                            isSelected: answer[index].identifier == controller.currentQuestion.value!.selectedAnswer,
-                                          );
-                                        },
-                                      );
-                                    },
-                                  ),
-                                ],
+                              Expanded(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Column(
+                                      children: [
+                                        Text(
+                                          controller.currentQuestion.value!.question,
+                                          style: questionTextStyleUtil(context),
+                                        ),
+                                        Gap.vertical(30),
+                                        GetBuilder<QuestionsController>(
+                                          id: 'answers_list', // ? this id can be use to call update only to this builder<QuestionsController>
+                                          builder: (context) {
+                                            final answer = controller.currentQuestion.value!.answers;
+                                            return ListView.separated(
+                                              shrinkWrap: true,
+                                              physics: const NeverScrollableScrollPhysics(),
+                                              itemCount: controller.currentQuestion.value!.answers.length,
+                                              separatorBuilder: (BuildContext context, int index) {
+                                                return Gap.vertical(10);
+                                              },
+                                              itemBuilder: (BuildContext context, int index) {
+                                                return AnswerCardWidget(
+                                                  identifier: "${answer[index].identifier}.",
+                                                  answer: " ${answer[index].answer}",
+                                                  onTap: () {
+                                                    controller.selectedAnswer(answer[index].identifier);
+                                                  },
+                                                  isSelected: answer[index].identifier == controller.currentQuestion.value!.selectedAnswer,
+                                                );
+                                              },
+                                            );
+                                          },
+                                        ),
+                                      ],
+                                    ),
+                                    Visibility(
+                                      visible: controller.loadingStatus.value == LoadingStatus.completed,
+                                      child: Row(
+                                        children: [
+                                          Visibility(
+                                            visible: controller.isFirstQuestion,
+                                            child: IconButton.filled(
+                                              style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.white)),
+                                              onPressed: () {
+                                                controller.previousQuestion();
+                                              },
+                                              icon: const Icon(
+                                                Icons.arrow_back_ios_rounded,
+                                                color: Colors.red,
+                                              ),
+                                            ),
+                                          ),
+                                          Expanded(
+                                            child: ElevatedButton(
+                                              style: const ButtonStyle(elevation: MaterialStatePropertyAll(0)),
+                                              onPressed: () {
+                                                controller.isLastQuestion
+                                                    ? const Scaffold(
+                                                        body: Center(
+                                                          child: Text("Answer Review Page"),
+                                                        ),
+                                                      )
+                                                    : controller.nextQuestion();
+                                              },
+                                              child: Text(controller.isLastQuestion ? "Complete" : "Next"),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                           ],
                         ),
