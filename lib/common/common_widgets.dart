@@ -26,3 +26,9 @@ TextStyle cardStatTextStyleUtil(context) => TextStyle(
       color: UiParameters.isDarkMode() ? Theme.of(context).textTheme.bodyLarge!.color : Theme.of(context).primaryColorLight,
       fontSize: 13,
     );
+
+TextStyle questionTextStyleUtil(context) => const TextStyle(
+      //color: UiParameters.isDarkMode() ? Theme.of(context).textTheme.bodyLarge!.color : Theme.of(context).primaryColorLight,
+      fontWeight: FontWeight.w800,
+      fontSize: 16,
+    );

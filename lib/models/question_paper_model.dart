@@ -55,6 +55,7 @@ class QuestionsModal {
   String question;
   List<AnswersModal> answers;
   String correctAnswer;
+  String? selectedAnswer;
 
   QuestionsModal({required this.id, required this.question, required this.answers, required this.correctAnswer});
 
@@ -105,8 +106,6 @@ class AnswersModal {
     return data;
   }
 }
-
-
 
 // ** Manual model
 //class AnswerModel {

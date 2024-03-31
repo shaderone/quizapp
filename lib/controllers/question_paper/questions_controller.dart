@@ -10,6 +10,9 @@ class QuestionsController extends GetxController {
   //variable to hold all question for a paper
   late List<QuestionsModal> questionsListforUI = <QuestionsModal>[].obs;
 
+  // ! WTF is currentQuestion, why questionsListForUi is not used?
+  Rxn<QuestionsModal> currentQuestion = Rxn<QuestionsModal>();
+
   final loadingStatus = LoadingStatus.loading.obs;
 
   @override
@@ -45,6 +48,7 @@ class QuestionsController extends GetxController {
 
         //ie; if the questions from the firestore hasn't reached the questions list in questionpaperModal
         if (questionPaperModel.questions != null && questionPaperModel.questions!.isNotEmpty) {
+          currentQuestion.value = questionPaperModel.questions![0];
           questionsListforUI.assignAll(questionPaperModel.questions!);
           //print(questionPaperModel.questions!);
           loadingStatus.value = LoadingStatus.completed;
@@ -55,5 +59,11 @@ class QuestionsController extends GetxController {
     } catch (e) {
       if (kDebugMode) print("error: $e");
     }
+  }
+
+  void selectedAnswer(String? selectedAnswer) {
+    currentQuestion.value!.selectedAnswer = selectedAnswer;
+    //Rebuilds any getBuilder for RXN type variables
+    update(['answers_list']);
   }
 }
