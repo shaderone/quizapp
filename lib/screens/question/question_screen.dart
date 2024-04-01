@@ -10,6 +10,7 @@ import 'package:quiz_app/common/question_place_holder.dart';
 import 'package:quiz_app/config/Themes/app_colors.dart';
 import 'package:quiz_app/controllers/question_paper/questions_controller.dart';
 import 'package:quiz_app/firebase_ref/loading_status.dart';
+import 'package:quiz_app/screens/question/test_overview_screen.dart';
 
 class QuestionScreen extends GetView<QuestionsController> {
   const QuestionScreen({super.key});
@@ -43,7 +44,6 @@ class QuestionScreen extends GetView<QuestionsController> {
         ),
         title: "Qn. 1",
         showActonIcon: true,
-        onMenuTap: () {},
         titleWidget: Obx(() {
           return Text(
             "Q. ${(controller.questionsCounter.value + 1).toString().padLeft(2, "0")}",
@@ -124,13 +124,7 @@ class QuestionScreen extends GetView<QuestionsController> {
                                       child: ElevatedButton(
                                         style: const ButtonStyle(elevation: MaterialStatePropertyAll(0)),
                                         onPressed: () {
-                                          controller.isLastQuestion
-                                              ? const Scaffold(
-                                                  body: Center(
-                                                    child: Text("Answer Review Page"),
-                                                  ),
-                                                )
-                                              : controller.nextQuestion();
+                                          controller.isLastQuestion ? Get.toNamed(TestOverviewScreen.testOverviewScreenRouteName) : controller.nextQuestion();
                                         },
                                         child: Text(controller.isLastQuestion ? "Complete" : "Next"),
                                       ),
