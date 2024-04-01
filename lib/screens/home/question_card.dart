@@ -16,10 +16,7 @@ class QuestionCard extends GetView<QuestionPaperController> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        controller.navigateToQuestions(questionPaperModel: paperData, context: context);
-        print(paperData.title);
-      },
+      onTap: () => controller.navigateToQuestions(questionPaperModel: paperData, context: context),
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(cardBorderRadius),

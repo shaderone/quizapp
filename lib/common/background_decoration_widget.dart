@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:quiz_app/config/Themes/app_colors.dart';
 
 class BackgroundDecorationWidget extends StatelessWidget {

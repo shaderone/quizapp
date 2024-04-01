@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:quiz_app/config/Themes/app_colors.dart';
 
 import '../config/Themes/ui_parameters.dart';
 
@@ -27,8 +29,8 @@ TextStyle cardStatTextStyleUtil(context) => TextStyle(
       fontSize: 13,
     );
 
-TextStyle questionTextStyleUtil(context) => const TextStyle(
-      //color: UiParameters.isDarkMode() ? Theme.of(context).textTheme.bodyLarge!.color : Theme.of(context).primaryColorLight,
-      fontWeight: FontWeight.w800,
+TextStyle questionTextStyleUtil() => TextStyle(
+      color: UiParameters.isDarkMode() ? Theme.of(Get.context!).textTheme.bodyLarge!.color : ksurfaceTextColor,
+      fontWeight: FontWeight.bold,
       fontSize: 16,
     );

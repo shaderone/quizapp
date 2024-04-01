@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
@@ -19,6 +21,9 @@ class QuestionsController extends GetxController {
   Rxn<QuestionsModal> currentQuestion = Rxn<QuestionsModal>();
 
   final loadingStatus = LoadingStatus.loading.obs;
+
+  late int remainingSeconds;
+  final RxString time = "ETA...".obs;
 
   @override
   void onReady() {
@@ -42,7 +47,6 @@ class QuestionsController extends GetxController {
       // ? then this list is assigned to the 'questions' field in the 'QuestionPaperModal' thus accessible to the UI.
       // ? Only QuestionPaperModal is used to access all data, sub modal just assist in fetching data.
       questionPaperModel.questions = questionsList;
-
       // in questionPaperModel.questions
       for (QuestionsModal questionsModal in questionPaperModel.questions!) {
         final QuerySnapshot<Map<String, dynamic>> answerQuery = await questionPaperCRF.doc(questionPaperModel.id).collection("questions").doc(questionsModal.id).collection("answers").get();
@@ -55,7 +59,7 @@ class QuestionsController extends GetxController {
         if (questionPaperModel.questions != null && questionPaperModel.questions!.isNotEmpty) {
           currentQuestion.value = questionPaperModel.questions![0];
           questionsListforUI.assignAll(questionPaperModel.questions!);
-          //print(questionPaperModel.questions!);
+
           loadingStatus.value = LoadingStatus.completed;
         } else {
           loadingStatus.value = LoadingStatus.error;
@@ -64,6 +68,8 @@ class QuestionsController extends GetxController {
     } catch (e) {
       if (kDebugMode) print("error: $e");
     }
+
+    if (loadingStatus.value == LoadingStatus.completed) startTimer(questionPaperModel.timeSeconds);
   }
 
   void selectedAnswer(String? selectedAnswer) {
@@ -90,5 +96,25 @@ class QuestionsController extends GetxController {
       //send the new index to the cuurent questions stack
       currentQuestion.value = questionsListforUI[questionsCounter.value];
     }
+  }
+
+  void startTimer(int quizTimeInSeconds) {
+    //get quiz time from database
+    // divide it by 60 to get minutes
+    //decrement by 1 second until it reaches 00:00
+    const Duration decreaseInterval = Duration(seconds: 1);
+    remainingSeconds = quizTimeInSeconds;
+    Timer.periodic(decreaseInterval, (timer) {
+      if (remainingSeconds == 0) {
+        time.value = "~END~";
+        timer.cancel();
+      } else {
+        int minutes = remainingSeconds ~/ 60;
+        int seconds = remainingSeconds % 60;
+
+        time.value = "${minutes.toString().padLeft(2, '0')} : ${seconds.toString().padLeft(2, '0')}";
+        remainingSeconds--;
+      }
+    });
   }
 }
