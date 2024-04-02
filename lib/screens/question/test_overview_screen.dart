@@ -7,6 +7,7 @@ import 'package:quiz_app/common/content_area_widget.dart';
 import 'package:quiz_app/common/countdown_timer_widget.dart';
 import 'package:quiz_app/common/custom_appbar_widget.dart';
 import 'package:quiz_app/common/quiz_action_button.dart';
+import 'package:quiz_app/config/Themes/app_colors.dart';
 import 'package:quiz_app/config/Themes/ui_parameters.dart';
 import 'package:quiz_app/controllers/question_paper/questions_controller.dart';
 
@@ -39,7 +40,7 @@ class TestOverviewScreen extends GetView<QuestionsController> {
                 Column(
                   children: [
                     CountdownTimerWidget(
-                      color: UiParameters.isDarkMode() ? Theme.of(context).textTheme.bodyLarge!.color : Theme.of(context).primaryColorLight,
+                      color: UiParameters.isDarkMode() ? ksurfaceTextColor : Theme.of(context).primaryColorLight,
                     ),
                     Gap.vertical(20),
                     const OverViewCardWidgetWrapper(),

@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:quiz_app/common/common_widgets.dart';
+import 'package:quiz_app/config/Themes/app_colors.dart';
 import 'package:quiz_app/config/app_icons.dart';
 import 'package:quiz_app/controllers/question_paper/question_paper_controller.dart';
 import 'package:quiz_app/models/question_paper_model.dart';
@@ -20,7 +21,7 @@ class QuestionCard extends GetView<QuestionPaperController> {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(cardBorderRadius),
-          color: Theme.of(context).cardColor,
+          color: Get.isDarkMode ? ksurfaceTextColor : Theme.of(context).cardColor,
         ),
         padding: const EdgeInsets.all(10),
         child: Stack(
@@ -32,7 +33,7 @@ class QuestionCard extends GetView<QuestionPaperController> {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(12),
                   child: ColoredBox(
-                    color: Theme.of(context).primaryColorLight.withOpacity(0.1),
+                    color: Get.isDarkMode ? const Color(0xFF2e3c62).withOpacity(0.5) : Theme.of(context).primaryColorLight.withOpacity(0.1),
                     child: SizedBox(
                       height: Get.width * 0.125,
                       width: Get.width * 0.125,
@@ -74,13 +75,15 @@ class QuestionCard extends GetView<QuestionPaperController> {
               ],
             ),
             Positioned(
-              bottom: -13,
-              right: -10,
+              bottom: -14,
+              right: -10.5,
               child: IconButton(
                 onPressed: () {},
                 style: ButtonStyle(
                   padding: MaterialStateProperty.all(const EdgeInsets.symmetric(vertical: 10, horizontal: 20)),
-                  backgroundColor: MaterialStateProperty.all(Theme.of(context).primaryColorLight),
+                  backgroundColor: MaterialStateProperty.all(
+                    Get.isDarkMode ? const Color(0xFF2e3c62).withOpacity(0.5) : Theme.of(context).primaryColorLight,
+                  ),
                   shape: MaterialStateProperty.all(
                     RoundedRectangleBorder(
                       borderRadius: BorderRadius.only(
@@ -116,7 +119,7 @@ class CardStatWidget extends StatelessWidget {
       children: [
         Icon(
           icon,
-          color: UiParameters.isDarkMode() ? Colors.white : Theme.of(context).primaryColorLight.withOpacity(0.7),
+          color: UiParameters.isDarkMode() ? const Color(0xFF2e3c62) : Theme.of(context).primaryColorLight.withOpacity(0.7),
         ),
         Gap.horizontal(5),
         Text(

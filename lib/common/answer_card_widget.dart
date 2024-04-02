@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:quiz_app/config/Themes/app_colors.dart';
 import 'package:quiz_app/config/Themes/ui_parameters.dart';
 import 'package:quiz_app/screens/question/test_overview_screen.dart';
@@ -19,11 +20,19 @@ class AnswerCardWidget extends StatelessWidget {
         size: const Size.fromHeight(60),
         child: Card(
           elevation: 0,
-          color: isSelected ? selectedAnswerColor() : Theme.of(context).cardColor,
+          color: isSelected
+              ? selectedAnswerColor()
+              : Get.isDarkMode
+                  ? ksurfaceTextColor
+                  : Theme.of(context).cardColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(cardBorderRadius),
             side: BorderSide(
-              color: isSelected ? selectedAnswerColor() : selectedAnswerBorderColor(),
+              color: isSelected
+                  ? Get.isDarkMode
+                      ? const Color.fromARGB(255, 24, 78, 228)
+                      : selectedAnswerColor()
+                  : selectedAnswerBorderColor(),
             ),
           ),
           child: Align(

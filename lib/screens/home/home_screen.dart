@@ -6,10 +6,13 @@ import 'package:quiz_app/config/Themes/app_colors.dart';
 import 'package:quiz_app/config/Themes/ui_parameters.dart';
 import 'package:quiz_app/config/app_icons.dart';
 import 'package:quiz_app/controllers/auth_controller.dart';
+import 'package:quiz_app/controllers/theme_controller/theme_controller.dart';
 import 'package:quiz_app/screens/home/menu_screen.dart';
 import 'package:quiz_app/screens/home/question_card.dart';
 import '../../controllers/question_paper/question_paper_controller.dart';
 import '../../controllers/drawer_menu_controller.dart';
+
+enum PopupValue { toggleTheme, logout }
 
 class HomeScreen extends GetView<DrawerMenuController> {
   const HomeScreen({super.key});
@@ -69,9 +72,30 @@ class HomeScreen extends GetView<DrawerMenuController> {
                                           fontWeight: FontWeight.bold,
                                         ),
                                       )
-                                    : CircleAvatar(
-                                        radius: 25,
-                                        backgroundImage: NetworkImage(profileUrl),
+                                    : GetBuilder<ThemeController>(
+                                        builder: (themeController) {
+                                          return PopupMenuButton(
+                                            child: CircleAvatar(
+                                              radius: 25,
+                                              backgroundImage: NetworkImage(profileUrl),
+                                            ),
+                                            onSelected: (value) {
+                                              if (value == PopupValue.toggleTheme) {
+                                                //change theme
+                                              } else if (value == PopupValue.logout) {
+                                                controller.signOut();
+                                              }
+                                            },
+                                            itemBuilder: (context) {
+                                              return [
+                                                const PopupMenuItem(
+                                                  value: PopupValue.logout,
+                                                  child: Text("Logout"),
+                                                )
+                                              ];
+                                            },
+                                          );
+                                        },
                                       );
                               },
                             ),

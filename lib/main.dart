@@ -21,12 +21,16 @@ class Root extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
-    return GetMaterialApp(
-      title: 'Flutter Demo',
-      theme: Get.find<ThemeController>().lightTheme,
-      debugShowCheckedModeBanner: false,
-      //home: DataUploaderScreen(),
-      getPages: AppRoutes.routes,
+    return GetBuilder<ThemeController>(
+      builder: (_) {
+        return GetMaterialApp(
+          title: 'Flutter Demo',
+          theme: _.darkTheme,
+          debugShowCheckedModeBanner: false,
+          //home: DataUploaderScreen(),
+          getPages: AppRoutes.routes,
+        );
+      },
     );
   }
 }

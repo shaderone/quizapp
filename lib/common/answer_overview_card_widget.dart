@@ -18,7 +18,7 @@ class AnswerOverviewCardWidget extends StatelessWidget {
     //To give custom Background color as per Answer Status
     switch (answerStatus) {
       case AnswerStatus.answered:
-        backgroundColor = Get.isDarkMode ? Theme.of(context).cardColor : Theme.of(context).primaryColorLight;
+        backgroundColor = Get.isDarkMode ? const Color.fromARGB(255, 97, 137, 248) : Theme.of(context).primaryColorLight;
         break;
       case AnswerStatus.correct:
         backgroundColor = correctAnswerColor;
@@ -27,7 +27,7 @@ class AnswerOverviewCardWidget extends StatelessWidget {
         backgroundColor = wrongAnswerColor;
         break;
       case AnswerStatus.unAnswered:
-        backgroundColor = Get.isDarkMode ? Colors.red.withOpacity(0.5) : Theme.of(context).primaryColorLight.withOpacity(0.1);
+        backgroundColor = Get.isDarkMode ? const Color.fromARGB(255, 237, 61, 61).withOpacity(0.8) : Theme.of(context).primaryColorLight.withOpacity(0.1);
         break;
       default:
         backgroundColor = Theme.of(context).primaryColorLight.withOpacity(0.1);
@@ -44,7 +44,11 @@ class AnswerOverviewCardWidget extends StatelessWidget {
         child: Center(
           child: Text(
             index.toString(),
-            style: TextStyle(color: answerStatus == AnswerStatus.unAnswered ? Theme.of(context).primaryColorLight : null),
+            style: const TextStyle(
+              //color: answerStatus == AnswerStatus.unAnswered ? Theme.of(context).primaryColorLight : null,
+              color: ksurfaceTextColor,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
       ),

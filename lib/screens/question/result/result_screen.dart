@@ -47,12 +47,16 @@ class ResultScreen extends GetView<QuestionsController> {
                 ),
                 Text(
                   "You have 10 points",
-                  style: TextStyle(color: textColor),
+                  style: TextStyle(color: textColor, fontWeight: FontWeight.bold),
                 ),
                 Gap.vertical(10),
-                const Text(
+                Text(
                   "Tap the below question numbers to view the correct answers",
                   textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Get.isDarkMode ? ksurfaceTextColor : Theme.of(context).primaryColorLight,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 Gap.vertical(10),
                 GridView.builder(

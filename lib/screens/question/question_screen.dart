@@ -61,7 +61,7 @@ class QuestionScreen extends GetView<QuestionsController> {
                                   Text(
                                     controller.currentQuestion.value!.question,
                                     style: GoogleFonts.montserrat(
-                                      color: Colors.black,
+                                      color: Get.isDarkMode ? Colors.white : Colors.black,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
