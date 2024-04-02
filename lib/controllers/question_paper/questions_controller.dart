@@ -17,7 +17,8 @@ class QuestionsController extends GetxController {
   bool get isFirstQuestion => questionsCounter.value > 0;
   bool get isLastQuestion => questionsCounter.value == questionsListforUI.length - 1;
 
-  // ! WTF is currentQuestion, why questionsListForUi is not used?
+  //  WTF is currentQuestion, why questionsListForUi is not used?
+  // ? CurrentQuestion hold the current Question. As the name suggests.
   Rxn<QuestionsModal> currentQuestion = Rxn<QuestionsModal>();
 
   final loadingStatus = LoadingStatus.loading.obs;
@@ -72,6 +73,12 @@ class QuestionsController extends GetxController {
     if (loadingStatus.value == LoadingStatus.completed) startTimer(questionPaperModel.timeSeconds);
   }
 
+  String get getQuizOverview {
+    //Get how may answers are selected in the quiz
+    int selectedAnswersCount = questionsListforUI.where((quiz) => quiz.selectedAnswer != null).toList().length;
+    return "$selectedAnswersCount out of ${questionsListforUI.length} answered";
+  }
+
   void selectedAnswer(String? selectedAnswer) {
     currentQuestion.value!.selectedAnswer = selectedAnswer;
     //Rebuilds any getBuilder for RXN type variables
@@ -96,6 +103,14 @@ class QuestionsController extends GetxController {
       //send the new index to the cuurent questions stack
       currentQuestion.value = questionsListforUI[questionsCounter.value];
     }
+  }
+
+  void jumpToQuestion(int index, {bool shouldGoBack = true}) {
+    // This index is the index of the overview card item.
+    questionsCounter.value = index;
+    //set this as the current question
+    currentQuestion.value = questionsListforUI[index];
+    if (shouldGoBack) Get.back();
   }
 
   void startTimer(int quizTimeInSeconds) {

@@ -5,12 +5,12 @@ import 'package:quiz_app/common/Answer_card_widget.dart';
 import 'package:quiz_app/common/background_decoration_widget.dart';
 import 'package:quiz_app/common/common_widgets.dart';
 import 'package:quiz_app/common/content_area_widget.dart';
+import 'package:quiz_app/common/countdown_timer_widget.dart';
 import 'package:quiz_app/common/custom_appbar_widget.dart';
 import 'package:quiz_app/common/question_place_holder.dart';
-import 'package:quiz_app/config/Themes/app_colors.dart';
+import 'package:quiz_app/common/quiz_action_button.dart';
 import 'package:quiz_app/controllers/question_paper/questions_controller.dart';
 import 'package:quiz_app/firebase_ref/loading_status.dart';
-import 'package:quiz_app/screens/question/test_overview_screen.dart';
 
 class QuestionScreen extends GetView<QuestionsController> {
   const QuestionScreen({super.key});
@@ -22,25 +22,9 @@ class QuestionScreen extends GetView<QuestionsController> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: CustomAppbarWidget(
-        leadingWidget: Align(
+        leadingWidget: const Align(
           alignment: Alignment.centerLeft,
-          child: Container(
-            decoration: BoxDecoration(
-              border: Border.all(width: 1, color: ksurfaceTextColor),
-              borderRadius: BorderRadius.circular(20),
-            ),
-            padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-            child: Obx(() {
-              return Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  const Icon(Icons.timer, color: ksurfaceTextColor),
-                  Gap.horizontal(10),
-                  Expanded(child: Text(controller.time.value, style: questionTextStyleUtil())),
-                ],
-              );
-            }),
-          ),
+          child: CountdownTimerWidget(),
         ),
         title: "Qn. 1",
         showActonIcon: true,
@@ -120,14 +104,8 @@ class QuestionScreen extends GetView<QuestionsController> {
                                         ),
                                       ),
                                     ),
-                                    Expanded(
-                                      child: ElevatedButton(
-                                        style: const ButtonStyle(elevation: MaterialStatePropertyAll(0)),
-                                        onPressed: () {
-                                          controller.isLastQuestion ? Get.toNamed(TestOverviewScreen.testOverviewScreenRouteName) : controller.nextQuestion();
-                                        },
-                                        child: Text(controller.isLastQuestion ? "Complete" : "Next"),
-                                      ),
+                                    const Expanded(
+                                      child: QuizActionButton(),
                                     ),
                                   ],
                                 ),

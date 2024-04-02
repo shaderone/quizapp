@@ -8,6 +8,9 @@ import 'package:quiz_app/config/Themes/ui_parameters.dart';
 
 //colors
 const Color ksurfaceTextColor = Colors.white;
+const Color correctAnswerColor = Color(0xFF3ac3cb);
+const Color wrongAnswerColor = Color(0xFFF85187);
+const Color unAnswerColor = Color(0xFF2a3c65);
 
 // gradient for light theme
 const gradientLightTheme = LinearGradient(
