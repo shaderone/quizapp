@@ -46,7 +46,7 @@ class ResultScreen extends GetView<QuestionsController> {
                   ),
                 ),
                 Text(
-                  "You have 10 points",
+                  "You have ${controller.quizPoints} points",
                   style: TextStyle(color: textColor, fontWeight: FontWeight.bold),
                 ),
                 Gap.vertical(10),

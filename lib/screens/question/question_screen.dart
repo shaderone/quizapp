@@ -29,7 +29,6 @@ class QuestionScreen extends GetView<QuestionsController> {
           alignment: Alignment.centerLeft,
           child: CountdownTimerWidget(),
         ),
-        title: "Qn. 1",
         showActonIcon: true,
         titleWidget: Obx(
           () {
@@ -44,6 +43,7 @@ class QuestionScreen extends GetView<QuestionsController> {
         child: SafeArea(
           child: Obx(
             () {
+              controller.currentQuestion.value != null ? controller.currentQuestion.value!.selectedAnswer = "" : null;
               return Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: ContentArea(

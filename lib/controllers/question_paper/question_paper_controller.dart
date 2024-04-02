@@ -58,7 +58,7 @@ class QuestionPaperController extends GetxController {
       if (tryAgain) {
         Get.back();
         //? the offNamed() will remove the page from the stack and all the controllers will be deactivated.
-        Get.toNamed(QuestionScreen.questionScreenRouteName);
+        Get.toNamed(QuestionScreen.questionScreenRouteName, arguments: questionPaperModel);
       } else {
         // ** the argument is passed to the controller (QuestionsController) instead of the UI (QuestionScreen)
         Get.toNamed(QuestionScreen.questionScreenRouteName, arguments: questionPaperModel);

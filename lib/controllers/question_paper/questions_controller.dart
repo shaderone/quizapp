@@ -140,10 +140,13 @@ class QuestionsController extends GetxController {
   //on quiz completion
   void completeQuiz() {
     _timer!.cancel();
+    questionsCounter.value = 0;
     Get.offAndToNamed(ResultScreen.resultScreenRouteName);
   }
 
   void tryAgain() {
+    startTimer(questionPaperModel.timeSeconds);
+    questionsCounter.value = 0;
     Get.find<QuestionPaperController>().navigateToQuestions(
       questionPaperModel: questionPaperModel,
       context: Get.context!,
