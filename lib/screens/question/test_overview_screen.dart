@@ -27,6 +27,7 @@ class TestOverviewScreen extends GetView<QuestionsController> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: CustomAppbarWidget(
+        automaticallyImplyLeading: true,
         title: controller.getQuizOverview,
         leadingWidget: null,
       ),

@@ -1,36 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:quiz_app/common/Answer_card_widget.dart';
-import 'package:quiz_app/common/background_decoration_widget.dart';
-import 'package:quiz_app/common/common_widgets.dart';
-import 'package:quiz_app/common/content_area_widget.dart';
-import 'package:quiz_app/common/countdown_timer_widget.dart';
-import 'package:quiz_app/common/custom_appbar_widget.dart';
 import 'package:quiz_app/common/question_place_holder.dart';
-import 'package:quiz_app/common/quiz_action_button.dart';
 import 'package:quiz_app/controllers/question_paper/questions_controller.dart';
-import 'package:quiz_app/firebase_ref/loading_status.dart';
+import 'package:quiz_app/screens/question/result/result_screen.dart';
+import 'package:quiz_app/screens/question/test_overview_screen.dart';
 
-import 'test_overview_screen.dart';
+import '../../common/Answer_card_widget.dart';
+import '../../common/background_decoration_widget.dart';
+import '../../common/common_widgets.dart';
+import '../../common/content_area_widget.dart';
+import '../../common/custom_appbar_widget.dart';
+import '../../common/quiz_action_button.dart';
+import '../../firebase_ref/loading_status.dart';
 
-class QuestionScreen extends GetView<QuestionsController> {
-  const QuestionScreen({super.key});
+class ResultCheckScreen extends GetView<QuestionsController> {
+  const ResultCheckScreen({super.key});
 
-  static const String questionScreenRouteName = "/start_quiz";
+  static const String resultCheckScreenRouteName = "/result-check-screen";
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: CustomAppbarWidget(
-        automaticallyImplyLeading: false,
-        leadingWidget: const Align(
-          alignment: Alignment.centerLeft,
-          child: CountdownTimerWidget(),
-        ),
-        title: "Qn. 1",
+        automaticallyImplyLeading: true,
         showActonIcon: true,
+        onMenuTap: () => Get.toNamed(ResultScreen.resultScreenRouteName),
         titleWidget: Obx(
           () {
             return Text(
@@ -67,9 +63,11 @@ class QuestionScreen extends GetView<QuestionsController> {
                                   ),
                                   Gap.vertical(30),
                                   GetBuilder<QuestionsController>(
-                                    id: 'answers_list', // ? this id can be use to call update only to this builder<QuestionsController>
+                                    id: 'answers_review_list', // ? this id can be use to call update only to this builder<QuestionsController>
                                     builder: (context) {
                                       final answer = controller.currentQuestion.value!.answers;
+                                      final selectedAnswer = controller.currentQuestion.value!.selectedAnswer;
+                                      final correctAnswer = controller.currentQuestion.value!.correctAnswer;
                                       return ListView.separated(
                                         shrinkWrap: true,
                                         physics: const NeverScrollableScrollPhysics(),
@@ -78,14 +76,28 @@ class QuestionScreen extends GetView<QuestionsController> {
                                           return Gap.vertical(10);
                                         },
                                         itemBuilder: (BuildContext context, int index) {
-                                          return AnswerCardWidget(
-                                            identifier: "${answer[index].identifier}.",
-                                            answer: " ${answer[index].answer}",
-                                            onTap: () {
-                                              controller.selectedAnswer(answer[index].identifier);
-                                            },
-                                            isSelected: answer[index].identifier == controller.currentQuestion.value!.selectedAnswer,
-                                          );
+                                          final String answerText = "${answer[index].identifier} ${answer[index].answer}";
+                                          if (correctAnswer == selectedAnswer && answer[index].identifier == selectedAnswer) {
+                                            //selectedAnswer is also an identifier that the user has selected
+                                            //correct answer
+                                            return AnswerCardTypeWidget(answer: answerText, answerStatus: AnswerStatus.correct);
+                                          } else if (selectedAnswer == null) {
+                                            //not answered
+                                            return AnswerCardTypeWidget(answer: answerText, answerStatus: AnswerStatus.unAnswered);
+                                          } else if (correctAnswer != selectedAnswer && answer[index].identifier == selectedAnswer) {
+                                            //wrong answer
+                                            return AnswerCardTypeWidget(answer: answerText, answerStatus: AnswerStatus.wrong);
+                                          } else if (correctAnswer == answer[index].identifier) {
+                                            //correct answer
+                                            return AnswerCardTypeWidget(answer: answerText, answerStatus: AnswerStatus.correct);
+                                          } else {
+                                            return AnswerCardWidget(
+                                              identifier: "${answer[index].identifier}.",
+                                              answer: " ${answer[index].answer}",
+                                              onTap: () {},
+                                              isSelected: false,
+                                            );
+                                          }
                                         },
                                       );
                                     },
@@ -112,7 +124,7 @@ class QuestionScreen extends GetView<QuestionsController> {
                                     Expanded(
                                       child: QuizActionButton(
                                         onPressed: () {
-                                          controller.isLastQuestion ? Get.toNamed(TestOverviewScreen.testOverviewScreenRouteName) : controller.nextQuestion();
+                                          controller.nextQuestion();
                                         },
                                       ),
                                     ),

@@ -12,6 +12,7 @@ class CustomAppbarWidget extends StatelessWidget implements PreferredSizeWidget 
     this.titleWidget,
     this.leadingWidget,
     this.onMenuTap,
+    required this.automaticallyImplyLeading,
   });
 
   final String title;
@@ -19,18 +20,14 @@ class CustomAppbarWidget extends StatelessWidget implements PreferredSizeWidget 
   final bool showActonIcon;
   final Widget? leadingWidget;
   final VoidCallback? onMenuTap;
-  //final Widget? timer;
+  final bool automaticallyImplyLeading;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: AppBar(
-        automaticallyImplyLeading: leadingWidget == null
-            ? titleWidget == null
-                ? true
-                : false
-            : false,
+        automaticallyImplyLeading: automaticallyImplyLeading,
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: titleWidget ?? Text(title),
@@ -39,7 +36,7 @@ class CustomAppbarWidget extends StatelessWidget implements PreferredSizeWidget 
         toolbarHeight: 80,
         leadingWidth: leadingWidget != null ? 120 : 50,
         actions: [
-          leadingWidget != null
+          showActonIcon
               ? IconButton(
                   onPressed: onMenuTap ?? () => Get.toNamed(TestOverviewScreen.testOverviewScreenRouteName),
                   icon: const Icon(AppIcons.quizMenuIcon, color: ksurfaceTextColor),

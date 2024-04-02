@@ -55,11 +55,10 @@ class QuestionPaperController extends GetxController {
 
     // means if a user exists...
     if (authController.isUserLoggedIn()) {
-      //!WTF is tryAgain
       if (tryAgain) {
         Get.back();
         //? the offNamed() will remove the page from the stack and all the controllers will be deactivated.
-        //Get.offNamed();
+        Get.toNamed(QuestionScreen.questionScreenRouteName);
       } else {
         // ** the argument is passed to the controller (QuestionsController) instead of the UI (QuestionScreen)
         Get.toNamed(QuestionScreen.questionScreenRouteName, arguments: questionPaperModel);

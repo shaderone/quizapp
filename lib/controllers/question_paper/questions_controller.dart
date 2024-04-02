@@ -1,11 +1,12 @@
 import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
+import 'package:quiz_app/controllers/question_paper/question_paper_controller.dart';
 import 'package:quiz_app/firebase_ref/loading_status.dart';
 import 'package:quiz_app/firebase_ref/references.dart';
 import 'package:quiz_app/models/question_paper_model.dart';
+import 'package:quiz_app/screens/home/home_screen.dart';
 import 'package:quiz_app/screens/question/result/result_screen.dart';
 
 class QuestionsController extends GetxController {
@@ -37,7 +38,8 @@ class QuestionsController extends GetxController {
     super.onReady();
   }
 
-  Future<void> loadQuizData(QuestionPaperModel questionPaperModel) async {
+  Future<void> loadQuizData(QuestionPaperModel data) async {
+    questionPaperModel = data;
     loadingStatus.value = LoadingStatus.loading;
     try {
       final QuerySnapshot<Map<String, dynamic>> questionsQuery = await questionPaperCRF.doc(questionPaperModel.id).collection("questions").get();
@@ -60,7 +62,7 @@ class QuestionsController extends GetxController {
 
         //ie; if the questions from the firestore hasn't reached the questions list in questionpaperModal
         if (questionPaperModel.questions != null && questionPaperModel.questions!.isNotEmpty) {
-          currentQuestion.value = questionPaperModel.questions![0];
+          currentQuestion.value = questionPaperModel.questions![0]; //! WHY 0?
           questionsListforUI.assignAll(questionPaperModel.questions!);
 
           loadingStatus.value = LoadingStatus.completed;
@@ -84,7 +86,7 @@ class QuestionsController extends GetxController {
   void selectedAnswer(String? selectedAnswer) {
     currentQuestion.value!.selectedAnswer = selectedAnswer;
     //Rebuilds any getBuilder for RXN type variables
-    update(['answers_list']);
+    update(['answers_list', 'answers_review_list']);
   }
 
   void nextQuestion() {
@@ -139,5 +141,18 @@ class QuestionsController extends GetxController {
   void completeQuiz() {
     _timer!.cancel();
     Get.offAndToNamed(ResultScreen.resultScreenRouteName);
+  }
+
+  void tryAgain() {
+    Get.find<QuestionPaperController>().navigateToQuestions(
+      questionPaperModel: questionPaperModel,
+      context: Get.context!,
+      tryAgain: true,
+    );
+  }
+
+  void navigateToHome() {
+    _timer!.cancel();
+    Get.offNamedUntil(HomeScreen.homeScreenRouteName, (route) => false);
   }
 }

@@ -5,6 +5,7 @@ import 'package:quiz_app/screens/login/login_screen.dart';
 import 'package:quiz_app/screens/onboarding/onboarding_screen.dart';
 import 'package:quiz_app/screens/question/question_screen.dart';
 import 'package:quiz_app/screens/question/result/result_screen.dart';
+import 'package:quiz_app/screens/question/result_check_screen.dart';
 import 'package:quiz_app/screens/question/test_overview_screen.dart';
 import 'package:quiz_app/screens/splash/splash_screen.dart';
 
@@ -40,12 +41,14 @@ class AppRoutes {
     GetPage(
       name: TestOverviewScreen.testOverviewScreenRouteName,
       page: () => const TestOverviewScreen(),
-      //binding: BindingsBuilder.put(() => QuestionsController()),
     ),
     GetPage(
       name: ResultScreen.resultScreenRouteName,
       page: () => const ResultScreen(),
-      //binding: BindingsBuilder.put(() => QuestionsController()),
+    ),
+    GetPage(
+      name: ResultCheckScreen.resultCheckScreenRouteName,
+      page: () => const ResultCheckScreen(),
     ),
   ];
 }

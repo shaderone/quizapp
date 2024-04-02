@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:quiz_app/common/answer_overview_card_widget.dart';
@@ -10,7 +9,7 @@ import 'package:quiz_app/common/custom_appbar_widget.dart';
 import 'package:quiz_app/config/Themes/app_colors.dart';
 import 'package:quiz_app/controllers/question_paper/questions_controller.dart';
 import 'package:quiz_app/controllers/question_paper/questions_controller_extension.dart';
-import 'package:quiz_app/screens/home/home_screen.dart';
+import 'package:quiz_app/screens/question/result_check_screen.dart';
 import 'package:quiz_app/screens/question/test_overview_screen.dart';
 
 class ResultScreen extends GetView<QuestionsController> {
@@ -25,6 +24,7 @@ class ResultScreen extends GetView<QuestionsController> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: CustomAppbarWidget(
+        automaticallyImplyLeading: false,
         leadingWidget: null,
         titleWidget: Title(color: Colors.black, child: Text(controller.correctAnswerdQuestions)),
       ),
@@ -80,13 +80,11 @@ class ResultScreen extends GetView<QuestionsController> {
                     return AnswerOverviewCardWidget(
                       index: index + 1,
                       answerStatus: answerStatus,
-                      onTap: () => controller.jumpToQuestion(index, shouldGoBack: false),
+                      onTap: () {
+                        controller.jumpToQuestion(index, shouldGoBack: false);
+                        Get.toNamed(ResultCheckScreen.resultCheckScreenRouteName);
+                      },
                     );
-                    //return AnswerOverviewCardWidget(
-                    //  index: index + 1,
-                    //  answerStatus: answerStatus ? AnswerStatus.answered : AnswerStatus.unAnswered,
-                    //  onTap: () => controller.jumpToQuestion(index),
-                    //);
                   },
                 ),
                 const Spacer(),
@@ -95,18 +93,21 @@ class ResultScreen extends GetView<QuestionsController> {
                     Expanded(
                       child: ElevatedButton(
                         style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(
-                            Theme.of(context).cardColor.withOpacity(0.1),
-                          ),
+                          backgroundColor: MaterialStateProperty.all(Colors.blueGrey),
+                          foregroundColor: MaterialStateProperty.all(ksurfaceTextColor),
                         ),
-                        onPressed: () => Get.offAndToNamed(HomeScreen.homeScreenRouteName),
+                        onPressed: () {
+                          controller.tryAgain();
+                        },
                         child: const Text("Try Again"),
                       ),
                     ),
                     Gap.horizontal(10),
                     Expanded(
                       child: ElevatedButton(
-                        onPressed: () => Get.offAndToNamed(HomeScreen.homeScreenRouteName),
+                        onPressed: () {
+                          controller.saveTestResult();
+                        },
                         child: const Text("GO HOME"),
                       ),
                     ),
