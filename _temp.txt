@@ -4,9 +4,7 @@
 - 26 march : 6:25:10
 - 29 march : 7:37:51
 
-git : 
- - 
-
+git : Create Quiz completion and results screen
 
 
 ----------------------------------------------------------------

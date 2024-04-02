@@ -25,7 +25,7 @@ class Root extends StatelessWidget {
       builder: (_) {
         return GetMaterialApp(
           title: 'Flutter Demo',
-          theme: _.darkTheme,
+          theme: _.lightTheme,
           debugShowCheckedModeBanner: false,
           //home: DataUploaderScreen(),
           getPages: AppRoutes.routes,
