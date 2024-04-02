@@ -12,6 +12,8 @@ import 'package:quiz_app/common/quiz_action_button.dart';
 import 'package:quiz_app/controllers/question_paper/questions_controller.dart';
 import 'package:quiz_app/firebase_ref/loading_status.dart';
 
+import 'test_overview_screen.dart';
+
 class QuestionScreen extends GetView<QuestionsController> {
   const QuestionScreen({super.key});
 
@@ -28,12 +30,14 @@ class QuestionScreen extends GetView<QuestionsController> {
         ),
         title: "Qn. 1",
         showActonIcon: true,
-        titleWidget: Obx(() {
-          return Text(
-            "Q. ${(controller.questionsCounter.value + 1).toString().padLeft(2, "0")}",
-            style: questionTextStyleUtil(),
-          );
-        }),
+        titleWidget: Obx(
+          () {
+            return Text(
+              "Q. ${(controller.questionsCounter.value + 1).toString().padLeft(2, "0")}",
+              style: questionTextStyleUtil(),
+            );
+          },
+        ),
       ),
       body: BackgroundDecorationWidget(
         child: SafeArea(
@@ -104,8 +108,12 @@ class QuestionScreen extends GetView<QuestionsController> {
                                         ),
                                       ),
                                     ),
-                                    const Expanded(
-                                      child: QuizActionButton(),
+                                    Expanded(
+                                      child: QuizActionButton(
+                                        onPressed: () {
+                                          controller.isLastQuestion ? Get.toNamed(TestOverviewScreen.testOverviewScreenRouteName) : controller.nextQuestion();
+                                        },
+                                      ),
                                     ),
                                   ],
                                 ),

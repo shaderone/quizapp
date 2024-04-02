@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:quiz_app/firebase_ref/loading_status.dart';
 import 'package:quiz_app/firebase_ref/references.dart';
 import 'package:quiz_app/models/question_paper_model.dart';
+import 'package:quiz_app/screens/question/result/result_screen.dart';
 
 class QuestionsController extends GetxController {
   late QuestionPaperModel questionPaperModel;
@@ -23,6 +24,7 @@ class QuestionsController extends GetxController {
 
   final loadingStatus = LoadingStatus.loading.obs;
 
+  Timer? _timer;
   late int remainingSeconds;
   final RxString time = "ETA...".obs;
 
@@ -119,7 +121,7 @@ class QuestionsController extends GetxController {
     //decrement by 1 second until it reaches 00:00
     const Duration decreaseInterval = Duration(seconds: 1);
     remainingSeconds = quizTimeInSeconds;
-    Timer.periodic(decreaseInterval, (timer) {
+    _timer = Timer.periodic(decreaseInterval, (timer) {
       if (remainingSeconds == 0) {
         time.value = "~END~";
         timer.cancel();
@@ -131,5 +133,11 @@ class QuestionsController extends GetxController {
         remainingSeconds--;
       }
     });
+  }
+
+  //on quiz completion
+  void completeQuiz() {
+    _timer!.cancel();
+    Get.offAndToNamed(ResultScreen.resultScreenRouteName);
   }
 }

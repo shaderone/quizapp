@@ -41,30 +41,19 @@ class TestOverviewScreen extends GetView<QuestionsController> {
                       color: UiParameters.isDarkMode() ? Theme.of(context).textTheme.bodyLarge!.color : Theme.of(context).primaryColorLight,
                     ),
                     Gap.vertical(20),
-                    GridView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 5,
-                        childAspectRatio: 1 / 1,
-                        crossAxisSpacing: 10,
-                      ),
-                      itemCount: controller.questionsListforUI.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        final answerStatus = controller.questionsListforUI[index].selectedAnswer != null;
-                        return AnswerOverviewCardWidget(
-                          index: index + 1,
-                          answerStatus: answerStatus ? AnswerStatus.answered : AnswerStatus.unAnswered,
-                          onTap: () => controller.jumpToQuestion(index),
-                        );
-                      },
-                    ),
+                    const OverViewCardWidgetWrapper(),
                   ],
                 ),
                 const Spacer(),
-                const Row(
+                Row(
                   children: [
-                    Expanded(child: QuizActionButton()),
+                    Expanded(
+                      child: QuizActionButton(
+                        onPressed: () {
+                          controller.completeQuiz();
+                        },
+                      ),
+                    ),
                   ],
                 ),
               ],
@@ -72,6 +61,32 @@ class TestOverviewScreen extends GetView<QuestionsController> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class OverViewCardWidgetWrapper extends GetView<QuestionsController> {
+  const OverViewCardWidgetWrapper({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return GridView.builder(
+      physics: const NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 5,
+        childAspectRatio: 1 / 1,
+        crossAxisSpacing: 10,
+      ),
+      itemCount: controller.questionsListforUI.length,
+      itemBuilder: (BuildContext context, int index) {
+        final answerStatus = controller.questionsListforUI[index].selectedAnswer != null;
+        return AnswerOverviewCardWidget(
+          index: index + 1,
+          answerStatus: answerStatus ? AnswerStatus.answered : AnswerStatus.unAnswered,
+          onTap: () => controller.jumpToQuestion(index),
+        );
+      },
     );
   }
 }

@@ -26,11 +26,15 @@ class CustomAppbarWidget extends StatelessWidget implements PreferredSizeWidget 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: AppBar(
-        automaticallyImplyLeading: leadingWidget == null ? true : false,
+        automaticallyImplyLeading: leadingWidget == null
+            ? titleWidget == null
+                ? true
+                : false
+            : false,
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: titleWidget ?? Text(title),
-        centerTitle: true,
+        centerTitle: leadingWidget == const SizedBox() ? false : true,
         leading: leadingWidget,
         toolbarHeight: 80,
         leadingWidth: leadingWidget != null ? 120 : 50,
