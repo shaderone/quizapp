@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:quiz_app/common/Answer_card_widget.dart';
-import 'package:quiz_app/common/background_decoration_widget.dart';
-import 'package:quiz_app/common/common_widgets.dart';
-import 'package:quiz_app/common/content_area_widget.dart';
-import 'package:quiz_app/common/countdown_timer_widget.dart';
-import 'package:quiz_app/common/custom_appbar_widget.dart';
-import 'package:quiz_app/common/question_place_holder.dart';
-import 'package:quiz_app/common/quiz_action_button.dart';
+import 'package:quiz_app/common/widgets/answer_widgets/answer_card_widget.dart';
+import 'package:quiz_app/common/widgets/ui_widgets/background_decoration_widget.dart';
+import 'package:quiz_app/common/utils.dart';
+import 'package:quiz_app/common/widgets/ui_widgets/content_area_widget.dart';
+import 'package:quiz_app/common/widgets/quiz_widgets/countdown_timer_widget.dart';
+import 'package:quiz_app/common/widgets/ui_widgets/custom_appbar_widget.dart';
+import 'package:quiz_app/common/widgets/quiz_widgets/question_place_holder.dart';
+import 'package:quiz_app/common/widgets/quiz_widgets/quiz_action_button.dart';
 import 'package:quiz_app/controllers/question_paper/questions_controller.dart';
 import 'package:quiz_app/firebase_ref/loading_status.dart';
 

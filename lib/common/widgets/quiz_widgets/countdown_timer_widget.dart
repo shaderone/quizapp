@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../config/Themes/app_colors.dart';
-import '../controllers/question_paper/questions_controller.dart';
-import 'common_widgets.dart';
+import '../../../config/Themes/app_colors.dart';
+import '../../../controllers/question_paper/questions_controller.dart';
+import '../../utils.dart';
 
 class CountdownTimerWidget extends GetView<QuestionsController> {
   const CountdownTimerWidget({super.key, this.color});

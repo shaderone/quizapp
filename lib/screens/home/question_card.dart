@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:quiz_app/common/common_widgets.dart';
+import 'package:quiz_app/common/utils.dart';
 import 'package:quiz_app/config/Themes/app_colors.dart';
 import 'package:quiz_app/config/app_icons.dart';
 import 'package:quiz_app/controllers/question_paper/question_paper_controller.dart';

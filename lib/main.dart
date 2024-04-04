@@ -15,29 +15,20 @@ Future<void> main() async {
   runApp(const Root());
 }
 
-class Root extends StatefulWidget {
+class Root extends StatelessWidget {
   const Root({super.key});
 
-  @override
-  State<Root> createState() => _RootState();
-}
-
-class _RootState extends State<Root> {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
     return GetBuilder<ThemeController>(
       builder: (_) {
-        return Obx(
-          () {
-            return GetMaterialApp(
-              title: 'Flutter Demo',
-              theme: _.isDarkModeEnabled.value ? _.darkTheme : _.lightTheme,
-              debugShowCheckedModeBanner: false,
-              //home: DataUploaderScreen(),
-              getPages: AppRoutes.routes,
-            );
-          },
+        return GetMaterialApp(
+          title: 'Flutter Demo',
+          theme: _.isDarkModeEnabled.value ? _.darkTheme : _.lightTheme,
+          debugShowCheckedModeBanner: false,
+          //home: DataUploaderScreen(),
+          getPages: AppRoutes.routes,
         );
       },
     );

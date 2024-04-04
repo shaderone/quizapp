@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:quiz_app/config/Themes/app_colors.dart';
 import 'package:quiz_app/config/Themes/ui_parameters.dart';
 
-import '../controllers/theme_controller/theme_controller.dart';
+import '../../../controllers/theme_controller/theme_controller.dart';
 
 // ** this widget is for the background
 class ContentArea extends StatelessWidget {

@@ -36,7 +36,6 @@ class AnswerOverviewCardWidget extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Ink(
-        //padding: EdgeInsets.all(mobileScreenPadding),
         decoration: BoxDecoration(
           color: backgroundColor,
           borderRadius: UiParameters.cardBorderRadius,
@@ -45,7 +44,6 @@ class AnswerOverviewCardWidget extends StatelessWidget {
           child: Text(
             index.toString(),
             style: const TextStyle(
-              //color: answerStatus == AnswerStatus.unAnswered ? Theme.of(context).primaryColorLight : null,
               color: ksurfaceTextColor,
               fontWeight: FontWeight.bold,
             ),

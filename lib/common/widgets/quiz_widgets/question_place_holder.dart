@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:quiz_app/common/common_widgets.dart';
+import 'package:quiz_app/common/utils.dart';
 import 'package:shimmer/shimmer.dart';
 
 class QuestionPlaceholder extends StatelessWidget {

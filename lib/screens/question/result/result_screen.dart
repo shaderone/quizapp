@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:quiz_app/common/answer_overview_card_widget.dart';
-import 'package:quiz_app/common/background_decoration_widget.dart';
-import 'package:quiz_app/common/common_widgets.dart';
-import 'package:quiz_app/common/content_area_widget.dart';
-import 'package:quiz_app/common/custom_appbar_widget.dart';
+import 'package:quiz_app/common/widgets/answer_widgets/answer_overview_card_widget.dart';
+import 'package:quiz_app/common/widgets/ui_widgets/background_decoration_widget.dart';
+import 'package:quiz_app/common/utils.dart';
+import 'package:quiz_app/common/widgets/ui_widgets/content_area_widget.dart';
+import 'package:quiz_app/common/widgets/ui_widgets/custom_appbar_widget.dart';
 import 'package:quiz_app/config/Themes/app_colors.dart';
 import 'package:quiz_app/controllers/question_paper/questions_controller.dart';
 import 'package:quiz_app/controllers/question_paper/questions_controller_extension.dart';

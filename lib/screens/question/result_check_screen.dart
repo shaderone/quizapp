@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:quiz_app/common/question_place_holder.dart';
+import 'package:quiz_app/common/widgets/quiz_widgets/question_place_holder.dart';
 import 'package:quiz_app/controllers/question_paper/questions_controller.dart';
 import 'package:quiz_app/screens/question/result/result_screen.dart';
 import 'package:quiz_app/screens/question/test_overview_screen.dart';
-
-import '../../common/Answer_card_widget.dart';
-import '../../common/background_decoration_widget.dart';
-import '../../common/common_widgets.dart';
-import '../../common/content_area_widget.dart';
-import '../../common/custom_appbar_widget.dart';
-import '../../common/quiz_action_button.dart';
+import 'package:quiz_app/common/widgets/answer_widgets/answer_card_widget.dart';
+import '../../common/utils.dart';
+import '../../common/widgets/quiz_widgets/quiz_action_button.dart';
+import '../../common/widgets/ui_widgets/background_decoration_widget.dart';
+import '../../common/widgets/ui_widgets/content_area_widget.dart';
+import '../../common/widgets/ui_widgets/custom_appbar_widget.dart';
 import '../../firebase_ref/loading_status.dart';
 
 class ResultCheckScreen extends GetView<QuestionsController> {

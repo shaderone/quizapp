@@ -21,11 +21,13 @@ class DrawerMenuController extends GetxController {
 
   // ** All Task for each menu item
 
+  //* SIGNIN
   void signIn() {
     //show dialog before signing in, also notify the user.
     Get.find<AuthController>().navigateToLoginScreen();
   }
 
+  //* SINGOUT
   void signOut() {
     Get.find<AuthController>().signOut();
     //navigate to login screen or show a snackbar.
@@ -34,6 +36,7 @@ class DrawerMenuController extends GetxController {
     //Get.showSnackbar(const GetSnackBar(message: "Logged out successfully"));
   }
 
+  //* SINGOUT
   void sendMail() {
     final Uri emailUri = Uri(scheme: "mailto", path: "sharonshaji127001@gmail.com");
     //final urlType =

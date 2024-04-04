@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:quiz_app/common/common_widgets.dart';
+import 'package:quiz_app/common/utils.dart';
 import 'package:quiz_app/config/Themes/app_colors.dart';
 import 'package:quiz_app/config/Themes/ui_parameters.dart';
 

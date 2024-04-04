@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:quiz_app/common/common_widgets.dart';
+import 'package:quiz_app/common/utils.dart';
 import 'package:quiz_app/config/Themes/ui_parameters.dart';
 import 'package:quiz_app/controllers/drawer_menu_controller.dart';
 

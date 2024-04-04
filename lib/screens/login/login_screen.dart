@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:quiz_app/common/common_widgets.dart';
+import 'package:quiz_app/common/utils.dart';
 import 'package:quiz_app/config/Themes/app_colors.dart';
 import 'package:quiz_app/controllers/auth_controller.dart';
 import 'package:quiz_app/screens/login/file_paths.dart';
