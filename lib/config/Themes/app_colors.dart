@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:quiz_app/config/Themes/app_dark_theme.dart';
 import 'package:quiz_app/config/Themes/app_light_theme.dart';
 import 'package:quiz_app/config/Themes/ui_parameters.dart';
+import 'package:quiz_app/controllers/theme_controller/theme_controller.dart';
 
 //colors
 const Color ksurfaceTextColor = Colors.white;
@@ -36,7 +37,8 @@ const gradientDarkTheme = LinearGradient(
 LinearGradient getGradient() => UiParameters.isDarkMode() ? gradientDarkTheme : gradientLightTheme;
 
 Color customScaffodColor() {
-  return UiParameters.isDarkMode() ? const Color(0xFF2e3c62) : const Color.fromARGB(255, 240, 237, 255);
+  //return UiParameters.isDarkMode() ? const Color(0xFF2e3c62) : const Color.fromARGB(255, 240, 237, 255);
+  return Get.find<ThemeController>().isDarkModeEnabled.value ? const Color(0xFF2e3c62) : const Color.fromARGB(255, 240, 237, 255);
 }
 
 Color selectedAnswerColor() {

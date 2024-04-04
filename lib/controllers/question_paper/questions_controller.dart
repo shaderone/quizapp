@@ -2,12 +2,13 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
-import 'package:quiz_app/controllers/question_paper/question_paper_controller.dart';
 import 'package:quiz_app/firebase_ref/loading_status.dart';
 import 'package:quiz_app/firebase_ref/references.dart';
 import 'package:quiz_app/models/question_paper_model.dart';
 import 'package:quiz_app/screens/home/home_screen.dart';
 import 'package:quiz_app/screens/question/result/result_screen.dart';
+
+import 'question_paper_controller.dart';
 
 class QuestionsController extends GetxController {
   late QuestionPaperModel questionPaperModel;
@@ -145,8 +146,7 @@ class QuestionsController extends GetxController {
   }
 
   void tryAgain() {
-    startTimer(questionPaperModel.timeSeconds);
-    questionsCounter.value = 0;
+    print("in try again");
     Get.find<QuestionPaperController>().navigateToQuestions(
       questionPaperModel: questionPaperModel,
       context: Get.context!,

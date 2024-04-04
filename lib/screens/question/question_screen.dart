@@ -43,7 +43,6 @@ class QuestionScreen extends GetView<QuestionsController> {
         child: SafeArea(
           child: Obx(
             () {
-              controller.currentQuestion.value != null ? controller.currentQuestion.value!.selectedAnswer = "" : null;
               return Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: ContentArea(

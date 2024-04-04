@@ -7,6 +7,8 @@ class ThemeController extends GetxController {
   late ThemeData _lightTheme;
   late ThemeData _darkTheme;
 
+  RxBool isDarkModeEnabled = true.obs;
+
   @override
   void onInit() {
     initializeTheme();

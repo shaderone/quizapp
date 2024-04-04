@@ -38,99 +38,107 @@ class HomeScreen extends GetView<DrawerMenuController> {
               mainScreenScale: .2,
               mainScreenTapClose: true,
               menuScreen: const MenuScreen(),
-              mainScreen: Container(
-                decoration: BoxDecoration(gradient: getGradient()),
-                child: SafeArea(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.all(mobileScreenPadding),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            IconButton(
-                              onPressed: controller.toggleDrawer,
-                              icon: const Icon(
-                                AppIcons.menuLeft,
+              mainScreen: Obx(() {
+                return Container(
+                  decoration: BoxDecoration(
+                    gradient: Get.find<ThemeController>().isDarkModeEnabled.value == true ? gradientDarkTheme : gradientLightTheme,
+                  ),
+                  child: SafeArea(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.all(mobileScreenPadding),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              IconButton(
+                                onPressed: controller.toggleDrawer,
+                                icon: const Icon(
+                                  AppIcons.menuLeft,
+                                ),
                               ),
-                            ),
-                            GetBuilder<AuthController>(
-                              builder: (authController) {
-                                String profileUrl;
-                                final user = authController.currentUser;
-                                if (user == null || user.photoURL == null || user.photoURL!.isEmpty) {
-                                  profileUrl = "https://i.stack.imgur.com/frlIf.png";
-                                } else {
-                                  profileUrl = user.photoURL!;
-                                }
-                                return !authController.isUserLoggedIn()
-                                    ? const Text(
-                                        "Quiz App",
-                                        style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      )
-                                    : GetBuilder<ThemeController>(
-                                        builder: (themeController) {
-                                          return PopupMenuButton(
-                                            child: CircleAvatar(
-                                              radius: 25,
-                                              backgroundImage: NetworkImage(profileUrl),
-                                            ),
-                                            onSelected: (value) {
-                                              if (value == PopupValue.toggleTheme) {
-                                                //change theme
-                                              } else if (value == PopupValue.logout) {
-                                                controller.signOut();
-                                              }
-                                            },
-                                            itemBuilder: (context) {
-                                              return [
-                                                const PopupMenuItem(
-                                                  value: PopupValue.logout,
-                                                  child: Text("Logout"),
-                                                )
-                                              ];
-                                            },
-                                          );
-                                        },
-                                      );
-                              },
-                            ),
-                          ],
+                              GetBuilder<AuthController>(
+                                builder: (authController) {
+                                  String profileUrl;
+                                  final user = authController.currentUser;
+                                  if (user == null || user.photoURL == null || user.photoURL!.isEmpty) {
+                                    profileUrl = "https://i.stack.imgur.com/frlIf.png";
+                                  } else {
+                                    profileUrl = user.photoURL!;
+                                  }
+                                  return !authController.isUserLoggedIn()
+                                      ? const Text(
+                                          "Quiz App",
+                                          style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        )
+                                      : GetBuilder<ThemeController>(
+                                          builder: (themeController) {
+                                            return PopupMenuButton(
+                                              child: CircleAvatar(
+                                                radius: 25,
+                                                backgroundImage: NetworkImage(profileUrl),
+                                              ),
+                                              onSelected: (value) {
+                                                if (value == PopupValue.toggleTheme) {
+                                                  themeController.isDarkModeEnabled.value = !themeController.isDarkModeEnabled.value;
+                                                } else if (value == PopupValue.logout) {
+                                                  controller.signOut();
+                                                }
+                                              },
+                                              itemBuilder: (context) {
+                                                return [
+                                                  const PopupMenuItem(
+                                                    value: PopupValue.toggleTheme,
+                                                    child: Text("Change Theme"),
+                                                  ),
+                                                  const PopupMenuItem(
+                                                    value: PopupValue.logout,
+                                                    child: Text("Logout"),
+                                                  )
+                                                ];
+                                              },
+                                            );
+                                          },
+                                        );
+                                },
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          child: ContentArea(
-                            addPadding: false,
-                            child: Obx(
-                              () => ListView.separated(
-                                padding: UiParameters.mobileScreenPadding,
-                                itemCount: questionPaperController.questionPapersList.length,
-                                separatorBuilder: (BuildContext context, int index) {
-                                  return const SizedBox(height: 20);
-                                },
-                                itemBuilder: (BuildContext context, int index) {
-                                  return Padding(
-                                    padding: const EdgeInsets.only(top: 20),
-                                    child: QuestionCard(
-                                      paperData: questionPaperController.questionPapersList[index],
-                                    ),
-                                  );
-                                },
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: ContentArea(
+                              addPadding: false,
+                              child: Obx(
+                                () => ListView.separated(
+                                  padding: UiParameters.mobileScreenPadding,
+                                  itemCount: questionPaperController.questionPapersList.length,
+                                  separatorBuilder: (BuildContext context, int index) {
+                                    return const SizedBox(height: 20);
+                                  },
+                                  itemBuilder: (BuildContext context, int index) {
+                                    return Padding(
+                                      padding: const EdgeInsets.only(top: 20),
+                                      child: QuestionCard(
+                                        paperData: questionPaperController.questionPapersList[index],
+                                      ),
+                                    );
+                                  },
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-              ),
+                );
+              }),
             );
           },
         ),
